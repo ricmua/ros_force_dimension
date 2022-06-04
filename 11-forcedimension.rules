@@ -1,0 +1,4 @@
+
+# Allow any user in the force_dimension group to use the Novint Falcon device.
+SUBSYSTEM=="usb", ACTION=="add", ATTR{idVendor}=="0403", ATTR{idProduct}=="cb48", MODE:="force_dimension"
+
