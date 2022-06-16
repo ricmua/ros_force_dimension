@@ -35,6 +35,7 @@
 void force_dimension::Node::PublishState() {
   sample_number_++;
   PublishPosition();
+  PublishButton();
   //publish_velocity();
   //publish_force();
   //publish_button();
@@ -85,3 +86,19 @@ bool force_dimension::Node::IsPublishableSample(std::string parameter_name) {
   return publish;
 }
 
+
+/** Publish button events.
+ *  
+ */
+void force_dimension::Node::PublishButton() {
+  
+  // Read the button mask.
+  int result = hardware_disabled_ ? 0 : dhdGetButtonMask(device_id_);
+  
+  // Prepare a button message.    
+  auto message = ButtonMessage();
+  message.data = result;
+  
+  // Publish.
+  if(IsPublishableSample("button")) button_publisher_->publish(message);
+}

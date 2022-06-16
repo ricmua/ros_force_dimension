@@ -64,6 +64,10 @@ void Node::on_configure(void) {
   auto topic = POSITION_FEEDBACK_TOPIC;
   position_publisher_ = create_publisher<PositionMessage>(topic, qos);
   
+  // Create the position state publisher.
+  topic = BUTTON_FEEDBACK_TOPIC;
+  button_publisher_ = create_publisher<ButtonMessage>(topic, qos);
+  
   //// Create the velocity state publisher.
   //topic = VELOCITY_FEEDBACK_TOPIC;
   //velocity_publisher = create_publisher<velocity_message>(topic, qos);
@@ -75,7 +79,8 @@ void Node::on_configure(void) {
   // Initialize ROS2 parameters.
   declare_parameter<float>("sample_interval_s", 0.025);
   declare_parameter<bool>("disable_hardware", false);
-  declare_parameter<int>("feedback_sample_decimation.position", 1);
+  declare_parameter<int>("feedback_sample_decimation.position", 50);
+  declare_parameter<int>("feedback_sample_decimation.button", 50);
   
   // Create the force control subcription.
   SubscribeForce();

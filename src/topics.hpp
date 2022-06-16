@@ -35,6 +35,11 @@ namespace force_dimension {
    */
   const char POSITION_FEEDBACK_TOPIC[] = "feedback/position";
 
+  /** Topic for publishing button press feedback.
+   *  
+   */
+  const char BUTTON_FEEDBACK_TOPIC[] = "feedback/button";
+
   /** Topic for publishing robot velocity feedback.
    *  
    */

@@ -78,6 +78,9 @@ namespace force_dimension {
     // Publishes robot position messages.
     void PublishPosition(void);
     
+    // Publishes robot button messages.
+    void PublishButton(void);
+    
     //// Publishes robot velocity messages.
     //void PublishVelocity(void);
     
@@ -104,6 +107,7 @@ namespace force_dimension {
     bool hardware_disabled_;
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<PositionMessage>::SharedPtr position_publisher_;
+    rclcpp::Publisher<ButtonMessage>::SharedPtr button_publisher_;
     //rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
     rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;

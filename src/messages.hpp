@@ -18,6 +18,7 @@
 // Import message types.
 #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/vector3.hpp"
+#include "example_interfaces/msg/int32.hpp"
 
 
 // Declare namespace.
@@ -39,6 +40,11 @@ namespace force_dimension {
    *  
    */
   typedef geometry_msgs::msg::Vector3 ForceMessage;
+
+  /** Event ROS message type definition.
+   *  
+   */
+  typedef example_interfaces::msg::Int32 ButtonMessage;
 
 } // namespace force_dimension
 

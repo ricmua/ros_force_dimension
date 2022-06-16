@@ -12,6 +12,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(example_interfaces REQUIRED)
 
 # *****************************************************************************
 # Find the Force Dimension SDK dependency.
@@ -35,8 +36,10 @@ endif()
 # Add the Force Dimension node dependency.
 # *****************************************************************************
 
-add_executable(node src/entry_point.cpp src/node.cpp src/log.cpp src/publish.cpp src/subscribe.cpp)
-ament_target_dependencies(node rclcpp geometry_msgs ForceDimensionSDK)
+add_executable(node src/entry_point.cpp src/node.cpp 
+                    src/log.cpp src/publish.cpp src/subscribe.cpp)
+ament_target_dependencies(node rclcpp geometry_msgs 
+                          example_interfaces ForceDimensionSDK)
 
 # *****************************************************************************
 # Install.

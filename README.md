@@ -30,6 +30,12 @@ like any other [ROS2 package][ros2_package_usage]. For example:
 ros2 run force_dimension node
 ```
 
+## Additional documentation
+
+* [Topics](doc/markdown/topics.md)
+* [Parameters](doc/markdown/parameters.md)
+* [Calibration](doc/markdown/calibration.md)
+
 ## License
 
 Copyright 2022 [Neuromechatronics Lab][neuromechatronics], 

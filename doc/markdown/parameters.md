@@ -84,6 +84,7 @@ Force Dimension node:
     sample_interval_s: 0.0005
     feedback_sample_decimation:
       position: 50
+      button: 50
       velocity: 200
     disable_hardware: false
 ```
