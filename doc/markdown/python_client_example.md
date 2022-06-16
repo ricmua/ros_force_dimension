@@ -11,7 +11,7 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 -->
 
 
-A [Python client example](scripts/run_example) is included, in order to 
+A [Python client example](scripts/run_example) is included to 
 illustrate how a client might interact with the Force Dimension node. The 
 client is designed to be as simple as possible: it simply prints the current 
 3D position of the robot end-effector to the ROS log, each time it receives a 
