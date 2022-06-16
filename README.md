@@ -35,6 +35,7 @@ ros2 run force_dimension node
 * [Topics](doc/markdown/topics.md)
 * [Parameters](doc/markdown/parameters.md)
 * [Calibration](doc/markdown/calibration.md)
+* [Launch](doc/markdown/launch.md)
 
 ## License
 
