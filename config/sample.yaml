@@ -1,0 +1,8 @@
+/robot/force_dimension:
+  ros__parameters:
+    sample_interval_s: 0.0005
+    feedback_sample_decimation:
+      position: 50
+      velocity: 
+    disable_hardware: false
+

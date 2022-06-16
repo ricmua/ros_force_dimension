@@ -92,11 +92,16 @@ namespace force_dimension {
     void force_callback(const ForceMessage);
     //void ApplyForce
     
+    // Check whether or not the current data sample should be published.
+    bool IsPublishableSample(std::string);
+    
    private:
     int device_id_;
     float publication_interval_s_;
     bool active_;
     bool configured_;
+    int sample_number_;
+    bool hardware_disabled_;
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<PositionMessage>::SharedPtr position_publisher_;
     //rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;

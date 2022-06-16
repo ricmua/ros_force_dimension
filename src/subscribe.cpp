@@ -39,10 +39,12 @@ void Node::SubscribeForce(void) {
 
 // Applies a force to the robotic manipulandum, as requested via ROS message.
 void Node::force_callback(const ForceMessage message) {
-  int result = dhdSetForce(message.x, message.y, message.z, device_id_);
+  auto result = hardware_disabled_ 
+              ? 0
+              : dhdSetForce(message.x, message.y, message.z, device_id_);
   if((result != 0) & (result != DHD_MOTOR_SATURATED)) {
       std::string message = "Cannot set force: ";
-      message += dhdErrorGetLastStr();
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
       Log(message);
       on_error();
   }

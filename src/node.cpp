@@ -73,7 +73,9 @@ void Node::on_configure(void) {
   //force_publisher = create_publisher<force_message>(topic, qos);
   
   // Initialize ROS2 parameters.
-  declare_parameter<float>("publication_interval_s", 0.025);
+  declare_parameter<float>("sample_interval_s", 0.025);
+  declare_parameter<bool>("disable_hardware", false);
+  declare_parameter<int>("feedback_sample_decimation.position", 1);
   
   // Create the force control subcription.
   SubscribeForce();
@@ -85,9 +87,12 @@ void Node::on_configure(void) {
  */
 void Node::on_activate(void) {
   
+  // Check to see if hardware has been disabled.
+  get_parameter("disable_hardware", hardware_disabled_);
+  
   // Open the first available Force Dimension device.
   Log("Initializing the Force Dimension interface.");
-  device_id_ = dhdOpen();
+  device_id_ = hardware_disabled_ ? 999 : dhdOpen();
   if(device_id_ < 0) {
       std::string message = "Cannot open Force Dimension device: ";
       message += dhdErrorGetLastStr();
@@ -96,16 +101,19 @@ void Node::on_activate(void) {
   }
   else {
       std::string message = "Force Dimension device detected: ";
-      message += dhdGetSystemName();
+      message += hardware_disabled_ ? "hardware disabled" : dhdGetSystemName();
       Log(message);
   }
   
   // Apply zero force.
-  auto result 
-    = dhdSetForceAndTorqueAndGripperForce(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+  auto result = hardware_disabled_ 
+              ? DHD_NO_ERROR 
+              : dhdSetForceAndTorqueAndGripperForce(0.0, 0.0, 0.0, 
+                                                    0.0, 0.0, 0.0, 0.0);
   if(result < DHD_NO_ERROR) {
       std::string message = "Cannot set force: ";
-      message += dhdErrorGetLastStr();
+      //message += dhdErrorGetLastStr();
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
       Log(message);
       on_error();
   }
@@ -116,21 +124,24 @@ void Node::on_activate(void) {
   // The sampling rate should be set low enough that any receiving nodes 
   // (e.g., a GUI), as well as the ROS system, can handle the message volume.
   auto callback = [this]() { this->PublishState(); };
-  float publication_interval_s;
-  if(get_parameter("publication_interval_s", publication_interval_s))
+  float sample_interval_s;
+  if(get_parameter("sample_interval_s", sample_interval_s))
   {
-    int publication_interval_ms = round(publication_interval_s * 1000);
+    int publication_interval_ms = round(sample_interval_s * 1000);
     std::chrono::milliseconds publication_interval(publication_interval_ms);
     timer_ = create_wall_timer(publication_interval, callback);
-    std::string message = "Publication timer initialized: Interval (ms) = ";
+    std::string message = "Sample timer initialized: Interval (ms) = ";
     message += std::to_string(publication_interval_ms);
     Log(message);
   }
   else
   {
-    Log("Failed to initialize publication timer.");
+    Log("Failed to initialize sample timer.");
     on_error();
   }
+  
+  // Reset the sample counter.
+  sample_number_ = 0;
 }
 
 
@@ -145,11 +156,13 @@ void Node::on_deactivate(void) {
   
   // Close the connection to the Force Dimension device.
   Log("Shutting the Force Dimension interface down.");
-  if(dhdClose() == DHD_NO_ERROR)
+  auto result = hardware_disabled_ ? DHD_NO_ERROR : dhdClose();
+  if(result == DHD_NO_ERROR)
     Log("Force Dimension interface closed.");
   else {
     std::string message = "Unable to close the device connection: ";
-    message += dhdErrorGetLast();
+    //message += dhdErrorGetLast();
+    message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
     Log(message);
     on_error();
   }

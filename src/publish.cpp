@@ -33,19 +33,27 @@
  *  force.
  */
 void force_dimension::Node::PublishState() {
+  sample_number_++;
   PublishPosition();
   //publish_velocity();
   //publish_force();
+  //publish_button();
+  //publish_orientation();
 }
 
 /** Publish the position of the robotic end-effector.
  *  
  */
-void force_dimension::Node::PublishPosition() {    
+void force_dimension::Node::PublishPosition() {
+  
+  // Retrieve the position.
   double px, py, pz;
-  if(dhdGetPosition(&px, &py, &pz) < DHD_NO_ERROR)  {
+  auto result = hardware_disabled_ 
+              ? DHD_NO_ERROR 
+              : dhdGetPosition(&px, &py, &pz);
+  if(result < DHD_NO_ERROR)  {
       std::string message = "Failed to read position: ";
-      message += dhdErrorGetLastStr();
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
       Log(message);
       on_error();
   }
@@ -56,6 +64,24 @@ void force_dimension::Node::PublishPosition() {
   message.z             = pz;
   //message.sample_number = sample_number;
   
-  position_publisher_->publish(message);
+  // Publish.
+  if(IsPublishableSample("position")) position_publisher_->publish(message);
+}
+
+
+/** Check whether or not the current data sample should be published.
+ *  
+ */
+bool force_dimension::Node::IsPublishableSample(std::string parameter_name) {
+  
+  // Decide whether or not to publish based on decimation of the sample counter.
+  std::string parameter_path = "feedback_sample_decimation." + parameter_name;
+  //int decimation_divisor;
+  rclcpp::Parameter parameter = get_parameter(parameter_path); //, decimation_divisor);
+  int decimation_divisor = parameter.as_int();
+  bool publish = (decimation_divisor > 0)
+               ? ((sample_number_ % decimation_divisor) == 0)
+               : false;
+  return publish;
 }
 
