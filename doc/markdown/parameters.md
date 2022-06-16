@@ -63,6 +63,15 @@ feedback published at ``40 Hz``.
 
 [get_parameters_by_prefix]: https://docs.ros2.org/latest/api/rclpy/api/node.html#rclpy.node.Node.get_parameters_by_prefix
 
+### Hardware switch
+
+The ``disable_hardware`` ROS2 parameter is a boolean value that determines 
+whether or not Force Dimension SDK calls are passed through. If the parameter 
+value is ``true``, then no SDK calls are made, and interaction with any robots 
+is therefore disabled. The node continues to operate and publish data, even in 
+the absence of calls to the SDK. This can be useful for testing and / or 
+debugging, in cases where a robot is not needed or not available.
+
 ## Sample configuration file
 
 ROS2 parameters can be [dumped and loaded][ros2_yaml_parameters] to/from a 
