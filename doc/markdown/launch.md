@@ -15,6 +15,12 @@ simultaneously start [multiple nodes][ros2_multiple_launch], in order to
 facilitate testing, debugging, and demonstrations involving the Force Dimension 
 pacakge.
 
+## Quickstart
+
+Use the ROS2 command line to launch these scripts. For example:
+
+```ros2 launch force_dimension echo_position.launch.py```
+
 ## Overview
 
 The ROS2 launch system has been [described][ros2_design_launch] as follows:
@@ -43,10 +49,6 @@ package:
   Dimension node and the ros2 bag utility for 
   [recording data][ros2_record_data]. The utility will record Force Dimension 
   data with the default settings.
-  
-Use the ROS2 command line to launch these scripts. For example:
-
-```ros2 launch force_dimension echo_position.launch.py```
 
 
 
