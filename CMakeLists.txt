@@ -50,10 +50,26 @@ install(TARGETS
 # Install launch files.
 # *****************************************************************************
 
-#install(DIRECTORY
-#  launch
-#  DESTINATION share/${PROJECT_NAME}/
-#)
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+# *****************************************************************************
+# Add the Python module dependencies
+# *****************************************************************************
+find_package(ament_cmake_python REQUIRED)
+find_package(rclpy REQUIRED)
+
+# *****************************************************************************
+# Install the Python package.
+# *****************************************************************************
+ament_python_install_package(${PROJECT_NAME})
+
+# *****************************************************************************
+# Install the Python scripts.
+# *****************************************************************************
+install(PROGRAMS scripts/run_example DESTINATION lib/${PROJECT_NAME})
 
 # *****************************************************************************
 # Testing.

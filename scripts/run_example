@@ -1,0 +1,57 @@
+#!/usr/bin/python3
+
+""" A simple example that illustrates use of the Force Dimension ROS2 package.
+"""
+
+# Copyright 2022 Carnegie Mellon Neuromechatronics Lab
+# 
+# Contact: a.whit nml@whit.contact
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+
+# ROS imports.
+import rclpy
+import rclpy.node
+from geometry_msgs.msg import Point
+
+
+# Entry point for ROS2.
+def main():
+    """ A simple function for creating a ROS2 node that subscribes to Force 
+        Dimension position messages and prints the current value.
+    """
+    
+    # Initialize ROS.
+    rclpy.init()
+    
+    # Create a new ROS2 node to act as a client for the Force Dimension node.
+    node = rclpy.node.Node('example_client', namespace='robot')
+    
+    # Create a callback to print the current position to the console.
+    point_string = lambda p: f'(x: {p.x:0.03}, y: {p.y:0.03}, z: {p.z:0.03})'
+    log = lambda s: node.get_logger().info(s)
+    print_position = lambda p: log(f'position={point_string(p)}')
+    
+    # Create a subscription for the Force Dimension position feedback topic.
+    kwargs = dict(msg_type  = Point,
+                  topic = 'feedback/position',
+                  callback = print_position,
+                  qos_profile = 10)
+    subscription = node.create_subscription(**kwargs)
+    
+    # Pass control to the ROS2 event loop until the user requests shutdown via
+    # a keyboard interrupt.
+    try: rclpy.spin(node)
+    except KeyboardInterrupt: pass
+    finally: node.destroy_node()
+    
+    # Shutdown ROS.
+    rclpy.shutdown()
+    
+  
+
+if __name__ == '__main__': main()
+
