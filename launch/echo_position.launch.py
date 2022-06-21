@@ -24,6 +24,7 @@ See the launch architecture_ documentation for further details.
 
 from launch import LaunchDescription
 from launch.actions import ExecuteProcess
+from launch.actions import TimerAction
 from launch_ros.actions import Node
 
 def generate_launch_description():
@@ -33,8 +34,9 @@ def generate_launch_description():
     
     cmd = ['ros2', 'topic', 'echo', '/robot/feedback/position']
     echo_cmd = ExecuteProcess(cmd=cmd, output='screen', emulate_tty=True)
+    delayed_echo_cmd = TimerAction(period=0.200, actions=[echo_cmd])
     
-    return LaunchDescription([server_node, echo_cmd])
+    return LaunchDescription([server_node, delayed_echo_cmd])
     
   
 
