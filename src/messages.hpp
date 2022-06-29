@@ -1,4 +1,4 @@
-/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University (a.whit)
  *  
  *  Created by: a. whit. (nml@whit.contact)
  *  
@@ -19,6 +19,7 @@
 #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/vector3.hpp"
 #include "example_interfaces/msg/int32.hpp"
+#include "example_interfaces/msg/float64.hpp"
 
 
 // Declare namespace.
@@ -45,6 +46,16 @@ namespace force_dimension {
    *  
    */
   typedef example_interfaces::msg::Int32 ButtonMessage;
+
+  /** Gripper gap ROS message type definition.
+   *  
+   */
+  typedef example_interfaces::msg::Float64 GripperGapMessage;
+
+  /** Gripper angle ROS message type definition.
+   *  
+   */
+  typedef example_interfaces::msg::Float64 GripperAngleMessage;
 
 } // namespace force_dimension
 

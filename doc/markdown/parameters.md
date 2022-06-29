@@ -1,7 +1,6 @@
-
 <!-- License
 
-Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University (a.whit)
 
 Created by: a. whit. (nml@whit.contact)
 
@@ -72,6 +71,15 @@ is therefore disabled. The node continues to operate and publish data, even in
 the absence of calls to the SDK. This can be useful for testing and / or 
 debugging, in cases where a robot is not needed or not available.
 
+### Button emulation
+
+It is possible to treat the gripper of Force Dimension robots that lack buttons 
+as though it were a button. See the [dhdEmulateButton] function of the Force 
+Dimension haptics SDK for further details. The ``gripper.emulate_button`` ROS2 
+parameter toggles this capability. Button emulation is enabled or disabled 
+only during the activation process, so that changing the parameter while the 
+Force Dimension node is active will have no effect.
+
 ## Sample configuration file
 
 ROS2 parameters can be [dumped and loaded][ros2_yaml_parameters] to/from a 
@@ -85,9 +93,14 @@ Force Dimension node:
     feedback_sample_decimation:
       position: 50
       button: 50
+      gripper_gap: 50
+      gripper_angle: 50
       velocity: 200
     disable_hardware: false
+    gripper:
+      emulate_button: false
 ```
+
 
 [YAML]: https://en.wikipedia.org/wiki/YAML
 
@@ -96,4 +109,7 @@ Force Dimension node:
 [ros2_parameters]: https://docs.ros.org/en/humble/Tutorials/Parameters/Understanding-ROS2-Parameters.html
  
 [command_line_parameters]: https://docs.ros.org/en/humble/How-To-Guides/Node-arguments.html#parameters
+
+[dhdEmulateButton]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#aa23bc77b009e020c05ef725eb533b60c
+
 

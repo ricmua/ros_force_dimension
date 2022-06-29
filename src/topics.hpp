@@ -1,4 +1,4 @@
-/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University (a.whit)
  *  
  *  Created by: a. whit. (nml@whit.contact)
  *  
@@ -55,6 +55,16 @@ namespace force_dimension {
    */
   const char FORCE_COMMAND_TOPIC[] = "command/force";
   
+  /** Topic for gripper gap width feedback.
+   *  
+   */
+  const char GRIPPER_GAP_FEEDBACK_TOPIC[] = "feedback/gripper_gap";
+
+  /** Topic for gripper angle feedback.
+   *  
+   */
+  const char GRIPPER_ANGLE_FEEDBACK_TOPIC[] = "feedback/gripper_angle";
+
 } // namespace force_dimension
 
 

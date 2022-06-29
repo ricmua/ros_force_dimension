@@ -1,4 +1,4 @@
-/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University (a.whit)
  *  
  *  Created by: a. whit. (nml@whit.contact)
  *  
@@ -81,6 +81,12 @@ namespace force_dimension {
     // Publishes robot button messages.
     void PublishButton(void);
     
+    // Publish gripper opening distance in meters.
+    void PublishGripperGap(void);
+    
+    // Publish gripper opening angle in radians.
+    void PublishGripperAngle(void);
+    
     //// Publishes robot velocity messages.
     //void PublishVelocity(void);
     
@@ -108,6 +114,8 @@ namespace force_dimension {
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<PositionMessage>::SharedPtr position_publisher_;
     rclcpp::Publisher<ButtonMessage>::SharedPtr button_publisher_;
+    rclcpp::Publisher<GripperGapMessage>::SharedPtr gripper_gap_publisher_;
+    rclcpp::Publisher<GripperAngleMessage>::SharedPtr gripper_angle_publisher_;
     //rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
     rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;

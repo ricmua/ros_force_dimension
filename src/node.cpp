@@ -1,4 +1,4 @@
-/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University (a.whit)
  *  
  *  Created by: a. whit. (nml@whit.contact)
  *  
@@ -64,9 +64,17 @@ void Node::on_configure(void) {
   auto topic = POSITION_FEEDBACK_TOPIC;
   position_publisher_ = create_publisher<PositionMessage>(topic, qos);
   
-  // Create the position state publisher.
+  // Create the button state publisher.
   topic = BUTTON_FEEDBACK_TOPIC;
   button_publisher_ = create_publisher<ButtonMessage>(topic, qos);
+  
+  // Create the gripper gap state publisher.
+  topic = GRIPPER_GAP_FEEDBACK_TOPIC;
+  gripper_gap_publisher_ = create_publisher<GripperGapMessage>(topic, qos);
+  
+  // Create the gripper angle state publisher.
+  topic = GRIPPER_ANGLE_FEEDBACK_TOPIC;
+  gripper_angle_publisher_ = create_publisher<GripperAngleMessage>(topic, qos);
   
   //// Create the velocity state publisher.
   //topic = VELOCITY_FEEDBACK_TOPIC;
@@ -79,8 +87,11 @@ void Node::on_configure(void) {
   // Initialize ROS2 parameters.
   declare_parameter<float>("sample_interval_s", 0.025);
   declare_parameter<bool>("disable_hardware", false);
+  declare_parameter<bool>("gripper.emulate_button", false);
   declare_parameter<int>("feedback_sample_decimation.position", 50);
   declare_parameter<int>("feedback_sample_decimation.button", 50);
+  declare_parameter<int>("feedback_sample_decimation.gripper_gap", 50);
+  declare_parameter<int>("feedback_sample_decimation.gripper_angle", 50);
   
   // Create the force control subcription.
   SubscribeForce();
@@ -93,6 +104,8 @@ void Node::on_configure(void) {
 void Node::on_activate(void) {
   
   // Check to see if hardware has been disabled.
+  // This is done once, at the time of activation, and stored in a member 
+  // variable while active.
   get_parameter("disable_hardware", hardware_disabled_);
   
   // Open the first available Force Dimension device.
@@ -110,11 +123,23 @@ void Node::on_activate(void) {
       Log(message);
   }
   
+  // Enable button emulation, if requested.
+  unsigned char val = get_parameter("gripper.emulate_button").as_bool()
+                    ? DHD_ON : DHD_OFF;
+  int result = hardware_disabled_ ? 0 : dhdEmulateButton(val, device_id_);
+  if(result != 0) {
+      std::string message = "Button emulation failure: ";
+      //message += dhdErrorGetLastStr();
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
+      Log(message);
+      on_error();
+  }
+  
   // Apply zero force.
-  auto result = hardware_disabled_ 
-              ? DHD_NO_ERROR 
-              : dhdSetForceAndTorqueAndGripperForce(0.0, 0.0, 0.0, 
-                                                    0.0, 0.0, 0.0, 0.0);
+  result = hardware_disabled_ 
+         ? DHD_NO_ERROR 
+         : dhdSetForceAndTorqueAndGripperForce(0.0, 0.0, 0.0, 
+                                               0.0, 0.0, 0.0, 0.0);
   if(result < DHD_NO_ERROR) {
       std::string message = "Cannot set force: ";
       //message += dhdErrorGetLastStr();

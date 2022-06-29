@@ -1,4 +1,4 @@
-/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+/** Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University (a.whit)
  *  
  *  Created by: a. whit. (nml@whit.contact)
  *  
@@ -9,6 +9,10 @@
 
 // Functionality related to publishing ROS2 messages.
 
+
+// Include guard.
+#ifndef FORCE_DIMENSION_PUBLISH_H_
+#define FORCE_DIMENSION_PUBLISH_H_
 
 // Import the node header.
 #include "node.hpp"
@@ -36,6 +40,8 @@ void force_dimension::Node::PublishState() {
   sample_number_++;
   PublishPosition();
   PublishButton();
+  PublishGripperGap();
+  PublishGripperAngle();
   //publish_velocity();
   //publish_force();
   //publish_button();
@@ -102,3 +108,63 @@ void force_dimension::Node::PublishButton() {
   // Publish.
   if(IsPublishableSample("button")) button_publisher_->publish(message);
 }
+
+
+/** Publish gripper opening distance in meters.
+ *  
+ */
+void force_dimension::Node::PublishGripperGap() {
+  
+  // Read the gripper gap.
+  double gap = -1;
+  bool has_gripper = hardware_disabled_ ? false : dhdHasGripper(device_id_);
+  int result = has_gripper ? dhdGetGripperGap(&gap, device_id_) : 0;
+  if(result != 0)  {
+      std::string message = "Failed to read gripper gap: ";
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
+      Log(message);
+      on_error();
+  }
+  
+  // Prepare a gripper gap message.
+  // ROS2 messages have "no constructor with positional arguments for the 
+  // members".
+  auto message = GripperGapMessage();
+  message.data = gap;
+  
+  // Publish.
+  if(IsPublishableSample("gripper_gap"))
+    gripper_gap_publisher_->publish(message);
+}
+
+
+/** Publish gripper opening angle in radians.
+ *  
+ */
+void force_dimension::Node::PublishGripperAngle() {
+  
+  // Read the gripper angle.
+  double angle = -1;
+  bool has_gripper = hardware_disabled_ ? false : dhdHasGripper(device_id_);
+  int result = has_gripper ? dhdGetGripperAngleRad(&angle, device_id_) : 0;
+  if(result != 0)  {
+      std::string message = "Failed to read gripper angle: ";
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
+      Log(message);
+      on_error();
+  }
+  
+  // Prepare a gripper angle message.
+  // ROS2 messages have "no constructor with positional arguments for the 
+  // members".
+  auto message = GripperAngleMessage();
+  message.data = angle;
+  
+  // Publish.
+  if(IsPublishableSample("gripper_angle"))
+    gripper_angle_publisher_->publish(message);
+}
+
+
+#endif // FORCE_DIMENSION_PUBLISH_H_
+
