@@ -20,7 +20,7 @@ Topics are identified by fully-qualified
 [^ros_names]: Also see the documentation for [ROS names][ros_names].
 
 All fully-qualified topic names are prefixed with a 
-[namespace](doc/markdown/namespace.md). By default, the namespace for the 
+[namespace](namespace.md). By default, the namespace for the 
 Force Dimension node is ``robot``. In this documentation, the node namespace is 
 excluded, so that the fully-qualified topic name ``/robot/feedback/position`` 
 would here be referred to as ``feedback/position``.
@@ -52,7 +52,7 @@ The following topics are currently implemented:
 * ``feedback/orientation``
   
 Feedback topics can be decimated, in order to reduce the number of sent 
-messages. See the [parameters documentation](doc/markdown/parameters.md) for 
+messages. See the [parameters documentation](parameters.md) for 
 information about feedback decimation.
 
 
