@@ -1,7 +1,7 @@
 
 <!-- License
 
-Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University (a.whit)
 
 Created by: a. whit. (nml@whit.contact)
 
@@ -13,4 +13,5 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 By default, the Force Dimension node operates in the `robot` 
 [namespace][ros_namespace].
 
+[ros_namespace]: http://design.ros2.org/articles/topic_and_service_names.html#namespaces
 
