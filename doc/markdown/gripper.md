@@ -10,14 +10,14 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 -->
 
 Some Force Dimension robots are equipped with a gripper. The 
-[topics documentation](doc/markdown/topics.md#feedback_topics) describes how 
+[topics documentation](topics.md#feedback-topics) describes how 
 the Force Dimension node communicates information about the state of the 
 gripper. Also see the parameters documentation pertaining to 
-[sample decimation](doc/markdown/parameters.md#feedback_sample_decimation).
+[sample decimation](parameters.md#feedback-sample-decimation).
 
 A gripper can be used to emulate buttons. See the parameters documentation 
 section pertaining to 
-[button emulation](doc/markdown/parameters.md#button_emulation) for further 
+[button emulation](parameters.md#button-emulation) for further 
 information.
 
 ## TODO
