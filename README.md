@@ -24,7 +24,8 @@ See the [installation guide](doc/markdown/installation.md).
 
 Ensure that the package is properly [installed](doc/markdown/installation.md) 
 and that the robots are [calibrated](doc/markdown/calibration.md). The package 
-can then be used like any other [ROS2 package][ros2_package_usage]. For example:
+can then be used -- in a [configured ROS2 environment][ros2_environment] like 
+any other [ROS2 package][ros2_package_usage]. For example:
 
 ```
 ros2 run force_dimension node
@@ -72,3 +73,4 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 [neuromechatronics]: https://www.meche.engineering.cmu.edu/faculty/neuromechatronics-lab.html
 
+[ros2_environment]: https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html
