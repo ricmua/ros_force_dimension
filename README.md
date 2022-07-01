@@ -30,6 +30,14 @@ like any other [ROS2 package][ros2_package_usage]. For example:
 ros2 run force_dimension node
 ```
 
+The [Python example](#python-example) is a good place to start.
+
+### Python example
+
+A Python client node example is provided. See the 
+[documentation](doc/markdown/python_client_example.md), or go directly to the 
+[code](scripts/run_example).
+
 ## Additional documentation
 
 * [Topics](doc/markdown/topics.md)
