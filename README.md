@@ -23,12 +23,29 @@ See the [installation guide](doc/markdown/installation.md).
 ## Usage
 
 Ensure that the package is properly [installed](doc/markdown/installation.md) 
-and [calibrated](doc/markdown/calibration.md). The package can then be used 
-like any other [ROS2 package][ros2_package_usage]. For example:
+and that the robots are [calibrated](doc/markdown/calibration.md). The package 
+can then be used like any other [ROS2 package][ros2_package_usage]. For example:
 
 ```
 ros2 run force_dimension node
 ```
+
+To run the node without activating any robots, add the ``disable_hardware`` 
+flag:
+
+```
+ros2 run force_dimension node --ros-args -p disable_hardware:=True
+```
+
+That the node is functioning properly can be confirmed by running the following
+command in a second configured ROS2 environment:
+
+```
+ros2 topic echo /robot/feedback/position
+```
+
+The output will show the ``x``, ``y``, and ``z`` coordinates of the effector 
+endpoint (with arbitrary values, if the robot is disabled).
 
 ## Additional documentation
 
