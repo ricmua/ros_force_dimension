@@ -16,27 +16,18 @@ This package implements a simple ROS2 node for interfacing with
 was designed for [ROS2 Galactic](https://docs.ros.org/en/galactic/index.html), 
 and should work equally well on Microsoft Windows or Linux.
 
-## Installation
-
-See the [installation guide](doc/markdown/installation.md).
-
-## Usage
+## Getting started
 
 Ensure that the package is properly [installed](doc/markdown/installation.md) 
-and [calibrated](doc/markdown/calibration.md). The package can then be used 
-like any other [ROS2 package][ros2_package_usage]. For example:
+and that the robots are [calibrated](doc/markdown/calibration.md). The package 
+can then be used -- in a [configured ROS2 environment][ros2_environment] -- 
+like any other [ROS2 package][ros2_package_usage]. For example, a Force 
+Dimension server node can be invoked from the 
+[command line](doc/markdown/command_line.md).
 
-```
-ros2 run force_dimension node
-```
-
-The [Python example](#python-example) is a good place to start.
-
-### Python example
-
-A Python client node example is provided. See the 
-[documentation](doc/markdown/python_client_example.md), or go directly to the 
-[code](scripts/run_example).
+When designing client nodes that can interact with the Force Dimension server 
+node, the [Python example](doc/markdown/python_client_example.md) is a good 
+place to start.
 
 ## Additional documentation
 
@@ -63,3 +54,4 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 [neuromechatronics]: https://www.meche.engineering.cmu.edu/faculty/neuromechatronics-lab.html
 
+[ros2_environment]: https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html
