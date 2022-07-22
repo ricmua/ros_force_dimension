@@ -14,7 +14,7 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 This package implements a simple ROS2 node for interfacing with 
 [Force Dimension](https://www.forcedimension.com) haptics robots. This package 
 was designed for [ROS2 Galactic](https://docs.ros.org/en/galactic/index.html), 
-and should work equally well on Microsoft Windows or Linux.
+and should work equally well on Microsoft Windows or Ubuntu Linux.
 
 ## Getting started
 
@@ -22,12 +22,14 @@ Ensure that the package is properly [installed](doc/markdown/installation.md)
 and that the robots are [calibrated](doc/markdown/calibration.md). The package 
 can then be used -- in a [configured ROS2 environment][ros2_environment] -- 
 like any other [ROS2 package][ros2_package_usage]. For example, a Force 
-Dimension server node can be invoked from the 
+Dimension server node can be invoked and queried from the 
 [command line](doc/markdown/command_line.md).
 
 When designing client nodes that can interact with the Force Dimension server 
 node, the [Python example](doc/markdown/python_client_example.md) is a good 
-place to start.
+place to start. Also see the documentation related to the 
+[topics](doc/markdown/topics.md) and [parameters](doc/markdown/parameters.md) 
+associated with the ROS2 node.
 
 ## Additional documentation
 
