@@ -18,8 +18,41 @@ According to [Force Dimension](https://www.forcedimension.com):
   texture properties of all forms of material.
 
 For developers designing application that use their robots, Force Dimension 
-provides a C/C++ Software Development Kit ([SDK][force_dimension_sdk]).
+provides a C/C++ Software Development Kit ([SDK][force_dimension_sdk]). 
+Documentation for both the [Haptic][dhd_sdk] ([PDF][dhd_manual]) and 
+[Robotic][drd_sdk] SDK ([PDF][drd_manual]) interfaces is included with the SDK, 
+as well as being hosted (Version 3.14.0) on the Force Dimension 
+website.[^grange]
+
+[^grange]: Thanks to Sebastien.
+
+Several manuals (PDFs) for Force Dimension robots are also available in the SDK 
+and on the website:
+
+* [delta.x manual][delta_manual]
+* [lambda.7 manual][lambda_manual]
+* [omega.x manual][omega_manual]
+* [sigma.7 manual][sigma_manual]
+
+A manual for the [Haptic workstation][console_manual] is also available.
+
+[dhd_sdk]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/index.html
+[drd_sdk]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/drd/index.html
 
 [haptics_wikipedia]: https://en.wikipedia.org/wiki/Haptic_technology
 [force_dimension_sdk]: https://www.forcedimension.com/software/sdk
+
+[console_manual]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/user%20manual%20-%20console.pdf
+
+[delta_manual]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/user%20manual%20-%20delta.x.pdf
+
+[lambda_manual]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/user%20manual%20-%20lambda.7.pdf
+
+[omega_manual]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/user%20manual%20-%20omega.x.pdf
+
+[dhd_manual]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/user%20manual%20-%20Haptic%20SDK.pdf
+
+[drd_manual]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/user%20manual%20-%20Robotic%20SDK.pdf
+
+[sigma_manual]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/user%20manual%20-%20sigma.7.pdf
 
