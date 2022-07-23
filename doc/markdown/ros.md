@@ -10,13 +10,13 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 -->
 
 The Robot Operating System ([ROS][ros_wikipedia]) is a software framework 
-(middleware) that aims to simplify the development and distribution of robotics 
-software and control systems. More generally, ROS
+(software development kit and middleware) that aims to simplify the development 
+and distribution of robotics software and control systems. More generally, ROS
 
 > provides services designed for a heterogeneous computer cluster such as hardware abstraction, low-level device control, implementation of commonly used functionality, message-passing between processes, and package management. 
 
 Among other functionality, ROS provides the "plumbing" for linking diverse 
-software and hardware components. It is a form of 
+software and hardware components. At its core, it is a form of 
 [message-oriented middleware][mom_wikipedia] (MOM), which
 
 > is software or hardware infrastructure supporting sending and receiving messages between distributed systems. MOM allows application modules to be distributed over heterogeneous platforms and reduces the complexity of developing applications that span multiple operating systems and network protocols. 
@@ -27,7 +27,7 @@ robotics systems. These capabilities help developers to
 [avoid "reinventing the wheel"][why_ros].
 
 This package provides an interface between ROS and the Force Dimension SDK, so 
-that applications that use Force Dimension haptic devices can leverage the 
+that applications involving Force Dimension haptic devices can leverage the 
 many advantages of ROS. It is our hope that this will accelerate the process of 
 developing haptics applications.
 
