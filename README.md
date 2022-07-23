@@ -11,10 +11,17 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 # Force Dimension ROS2 package
 
-This package implements a simple ROS2 node for interfacing with 
-[Force Dimension](https://www.forcedimension.com) haptics robots. This package 
-was designed for [ROS2 Galactic](https://docs.ros.org/en/galactic/index.html), 
-and should work equally well on Microsoft Windows or Ubuntu Linux.
+This package implements a simple ROS2 node for interfacing with Force Dimension 
+[haptics][haptics_wikipedia] robots. It aims to simplify the process of 
+developing applications involving haptic devices. For further background 
+information, please see the documentation related to 
+[Force Dimension](doc/markdown/force_dimension.md) and 
+[ROS](doc/markdown/ros.md).
+
+This package was designed for [ROS2 Galactic][ros2_galactic], and should work equally well with Microsoft Windows or Ubuntu Linux.
+
+[haptics_wikipedia]: https://en.wikipedia.org/wiki/Haptic_technology
+[ros2_galactic]: https://docs.ros.org/en/galactic/index.html
 
 ## Getting started
 
