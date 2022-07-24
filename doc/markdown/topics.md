@@ -34,6 +34,11 @@ The following topics are currently implemented:
 * ``feedback/position``: Carries [Point][geometry_msgs_point] messages that 
   describe the current position of the robotic end-effector (as returned by the 
   [dhdGetPosition] function of the Force Dimension SDK).
+* ``feedback/velocity``: Carries [Vector3][geometry_msgs_vector3] messages that 
+  describe the current velocity of the robotic end-effector (as returned by the 
+  [dhdGetLinearVelocity] function of the Force Dimension SDK). See the 
+  Force Dimension documentation for 
+  [velocity estimation][fd_velocity_estimation].
 * ``feedback/button``: Carries [Int32][example_interfaces_int32] messages that 
   describe the current status of any buttons on a Force Dimension device. The 
   data element of each such message is a 32-bit integer bitmask (as returned by 
@@ -75,4 +80,11 @@ information about feedback decimation.
 [ros2_name_constraints]: http://design.ros2.org/articles/topic_and_service_names.html#ros-2-topic-and-service-name-constraints
 
 [ros_names]: http://wiki.ros.org/Names
+
+[dhdGetLinearVelocity]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a2a29fb157bbcd49cd1807a5febf314e7
+
+[fd_velocity_estimation]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/index.html#dhd_velocity_modes
+
+[geometry_msgs_vector3]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Vector3.html
+
 
