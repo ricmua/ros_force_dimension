@@ -94,12 +94,20 @@ namespace force_dimension {
     //void PublishForce(void);
     
     // Subscribes to ROS messages that indicate an instantaneous force to be 
-    // applied by the robot.
+    // applied to the robot endpoint.
     void SubscribeForce(void);
     
-    // Applies a force to the robotic manipulandum, as requested via ROS message.
+    // Subscribes to ROS messages that indicate an instantaneous force to be 
+    // applied to the gripper by the robot.
+    void SubscribeGripperForce(void);
+    
+    // Applies a force to the robotic manipulandum, as requested via ROS 
+    // message.
     void force_callback(const ForceMessage);
     //void ApplyForce
+    
+    // Applies a force to the robotic gripper, as requested via ROS message.
+    void gripper_force_callback(const GripperForceMessage);
     
     // Check whether or not the current data sample should be published.
     bool IsPublishableSample(std::string);
@@ -111,6 +119,8 @@ namespace force_dimension {
     bool configured_;
     int sample_number_;
     bool hardware_disabled_;
+    double current_endpoint_force_[3];
+    double current_gripper_force_;
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<PositionMessage>::SharedPtr position_publisher_;
     rclcpp::Publisher<ButtonMessage>::SharedPtr button_publisher_;
@@ -119,6 +129,8 @@ namespace force_dimension {
     //rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
     rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;
+    rclcpp::Subscription<GripperForceMessage>::SharedPtr 
+      gripper_force_subscription_;
   };
 
 }

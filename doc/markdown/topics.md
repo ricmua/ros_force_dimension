@@ -50,11 +50,29 @@ The following topics are currently implemented:
 * ``feedback/velocity``
 * ``feedback/force``
 * ``feedback/orientation``
-  
+
+State feedback is published at regular intervals. See the 
+[sampling interval](doc/markdown/parameters.md#sampling-interval) parameters 
+documentation for more information about the publication interval.
+
 Feedback topics can be decimated, in order to reduce the number of sent 
 messages. See the [parameters documentation](parameters.md) for 
 information about feedback decimation.
 
+## Command topics
+
+Force commands are sent as each message is received. The node does not wait for a sampling interval boundary to update the robot state via force commands.
+
+* ``command/force``: Carries [Vector3][geometry_msgs_vector3] messages that 
+  indicate a force vector to apply to the robotic end-effector (as 
+  accomplished via the [dhdSetForce] function of the Force Dimension SDK). 
+* ``command/gripper_force``: Carries [Float64][example_interfaces.float64] 
+  messages that indicate a force vector to apply to the robotic gripper (as 
+  accomplished via the [dhdSetForceAndGripperForce] function of the Force 
+  Dimension SDK). Note that the Force Dimension SDK does not decouple gripper 
+  force commands from endpoint force commands. Messages sent to this topic 
+  automatically trigger an endpoint force command. See the
+  [gripper documentation](doc/markdown/gripper.md) for further details.
 
 [dhdGetGripperAngleRad]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#aacb9cbecf42f01330bd9a8fc512011d9
 
@@ -70,9 +88,15 @@ information about feedback decimation.
 
 [geometry_msgs_point]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Point.html
 
+[geometry_msgs_vector3]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Vector3.html
+
 [ros_topics]: https://docs.ros.org/en/humble/Tutorials/Topics/Understanding-ROS2-Topics.html
 
 [ros2_name_constraints]: http://design.ros2.org/articles/topic_and_service_names.html#ros-2-topic-and-service-name-constraints
 
 [ros_names]: http://wiki.ros.org/Names
+
+[dhdSetForce]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#abb6f549b805a44a23a78aa6c29085c28
+
+[dhdSetForceAndGripperForce]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#aa2beb27a94c693149603619d44fc2725
 
