@@ -20,7 +20,7 @@ According to [Force Dimension](https://www.forcedimension.com):
 For developers designing application that use their robots, Force Dimension 
 provides a [C/C++ Software Development Kit][force_dimension_sdk] (SDK). 
 Documentation for both the Haptic ([HTML][dhd_sdk]/ [PDF][dhd_manual]) and 
-Robotic ([HTML][drd_sdk] / [PDF][drd_manual]) SDK interfaces is included with the SDK, 
+Robotic ([HTML][drd_sdk] / [PDF][drd_manual]) interfaces is included with the SDK, 
 as well as being hosted (Version 3.14.0) on the Force Dimension 
 website.[^grange]
 

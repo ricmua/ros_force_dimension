@@ -57,6 +57,11 @@ namespace force_dimension {
    */
   typedef example_interfaces::msg::Float64 GripperAngleMessage;
 
+  /** Gripper force ROS message type definition.
+   *  
+   */
+  typedef example_interfaces::msg::Float64 GripperForceMessage;
+
 } // namespace force_dimension
 
 
