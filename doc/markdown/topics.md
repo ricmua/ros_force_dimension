@@ -61,9 +61,11 @@ information about feedback decimation.
 
 ## Command topics
 
+Force commands are sent as each message is received. The node does not wait for a sampling interval boundary to update the robot state via force commands.
+
 * ``command/force``: Carries [Vector3][geometry_msgs_vector3] messages that 
   indicate a force vector to apply to the robotic end-effector (as 
-  accomplished via the [dhdSetForce] function of the Force Dimension SDK).
+  accomplished via the [dhdSetForce] function of the Force Dimension SDK). 
 * ``command/gripper_force``: Carries [Float64][example_interfaces.float64] 
   messages that indicate a force vector to apply to the robotic gripper (as 
   accomplished via the [dhdSetForceAndGripperForce] function of the Force 
