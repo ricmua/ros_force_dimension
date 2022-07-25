@@ -47,7 +47,6 @@ The following topics are currently implemented:
   messages that describe the current distance of the gripper opening angle in 
   radians. See the [dhdGetGripperAngleRad] function of the Force Dimension SDK 
   documentation for further details.
-* ``feedback/velocity``
 * ``feedback/force``
 * ``feedback/orientation``
   
