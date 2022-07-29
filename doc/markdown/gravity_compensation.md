@@ -67,9 +67,9 @@ is close to the true mass of the robotic endpoint effector. When the parameter
 setting is slightly less than the true value, the robot can be expected to 
 descend at a slower pace than it would without compensation. When the parameter 
 setting is slightly higher than the true value, the effector will rise. 
-Identifying the optimal parameter value may require some trial-and-error, if 
-the mass of the effector is uncertain.
-
+Identifying the optimal parameter value may require some trial-and-error
+[calibration](#testing-and-calibration), if the mass of the effector is 
+uncertain.
 
 ## Testing and calibration
 
