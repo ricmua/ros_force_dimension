@@ -49,3 +49,32 @@ void Node::force_callback(const ForceMessage message) {
       on_error();
   }
 }
+
+
+/** Subscribes to ROS messages that specify the configured mass of the 
+ *  endpoint effector that is to be used for gravity compensation.
+ */
+void Node::SubscribeMass(void) {
+  auto callback = [this](MassMessage m) { this->mass_callback(m); };
+  auto topic = MASS_COMMAND_TOPIC;
+  auto qos = DefaultQoS();
+  mass_subscription_ \
+      = this->create_subscription<MassMessage>(topic, qos, callback);
+}
+
+
+/** Adjusts the configured mass parameter that is to be used for gravity 
+ *  compensation.
+ */
+void Node::mass_callback(const MassMessage message) {
+  rclcpp::Parameter mass("effector_mass_kg", message.data);
+  rcl_interfaces::msg::SetParametersResult result = set_parameter(mass);
+  if(!result.successful) {
+      std::string message = "Failed to set parameter: ";
+      message += result.reason;
+      Log(message);
+      on_error();
+  }
+}
+
+

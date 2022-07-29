@@ -119,6 +119,28 @@ effect_. With gravity compensation disabled, the force of gravity will
 typically cause the robotic effector to drop.
 
 
+## Mass command topic
+
+The ``command/mass`` topic facillitates manipulation of the effector mass 
+parameter by remote ROS2 nodes. This might be useful, for example, for changing 
+the mass of the end effector or the gravitational constant in simulated virtual 
+environments.
+
+While the Force Dimension node is running (see the 
+[previous section](#testing-and-calibration)), change the effector mass:
+
+```
+ros2 topic pub --once /robot/command/mass example_interfaces/msg/Float64  \
+  "{data: 0.2375}"
+```
+
+As elsewhere, a force command must be sent before the updated mass parameter 
+affects the forces applied by the gravity compensation algorithm:
+
+```
+ros2 topic pub --once /robot/command/force geometry_msgs/msg/Vector3 \
+  "{x: 0.0, y: 0.0, z: 0.0}"
+```
 
 
 [dhdSetEffectorMass]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a21b58f37e0bd783f4744a8874ae7a02d

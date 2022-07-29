@@ -120,6 +120,14 @@ namespace force_dimension {
     rcl_interfaces::msg::SetParametersResult 
       set_parameters_callback(const std::vector<rclcpp::Parameter> &);
    
+    // Subscribes to ROS messages that specify the configured mass of the 
+    // endpoint effector that is to be used for gravity compensation.
+    void SubscribeMass(void);
+    
+    // Adjusts the configured mass parameter that is to be used for gravity 
+    // compensation.
+    void mass_callback(const MassMessage);
+    
    private:
     int device_id_;
     float publication_interval_s_;
@@ -136,6 +144,7 @@ namespace force_dimension {
     //rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
     rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;
+    rclcpp::Subscription<MassMessage>::SharedPtr mass_subscription_;
     OnSetParametersCallbackHandle::SharedPtr parameters_callback_handle_;
   };
 

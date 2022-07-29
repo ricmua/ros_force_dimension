@@ -65,6 +65,11 @@ namespace force_dimension {
    */
   const char GRIPPER_ANGLE_FEEDBACK_TOPIC[] = "feedback/gripper_angle";
 
+  /** Topic for effector mass commands.
+   *  
+   */
+  const char MASS_COMMAND_TOPIC[] = "command/mass";
+
 } // namespace force_dimension
 
 

@@ -57,6 +57,11 @@ namespace force_dimension {
    */
   typedef example_interfaces::msg::Float64 GripperAngleMessage;
 
+  /** Endpoint effector mass message.
+   *  
+   */
+  typedef example_interfaces::msg::Float64 MassMessage;
+
 } // namespace force_dimension
 
 

@@ -97,6 +97,10 @@ void Node::on_configure(void) {
 
   // Create the force control subcription.
   SubscribeForce();
+  
+  
+  // Create the mass control subcription.
+  SubscribeMass();
 }
 
 
