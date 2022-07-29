@@ -45,6 +45,7 @@ associated with the ROS2 node.
 * [Calibration](doc/markdown/calibration.md)
 * [Launch](doc/markdown/launch.md)
 * [Gripper](doc/markdown/gripper.md)
+* [Gravity compensation](doc/markdown/gravity_compensation.md)
 
 ## License
 

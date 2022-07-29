@@ -19,9 +19,16 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 The [Force Dimension SDK](force_dimension.md) documentation describes 
 [gravity compensation][fd_gravity_compensation] as follows:
 
-> To prevent user fatigue and to increase accuracy during manipulation, Force Dimension haptic devices features gravity compensation. When gravity compensation is enabled, the weights of the arms and of the end-effector are taken into account and a vertical force is dynamically applied to the end-effector on top of the user command. Please note that gravity compensation is computed on the host computer, and therefore only gets applied whenever a force command is sent to the device by the application.
+> To prevent user fatigue and to increase accuracy during manipulation, Force 
+  Dimension haptic devices features gravity compensation. When gravity 
+  compensation is enabled, the weights of the arms and of the end-effector are 
+  taken into account and a vertical force is dynamically applied to the 
+  end-effector on top of the user command. Please note that gravity 
+  compensation is computed on the host computer, and therefore only gets 
+  applied whenever a force command is sent to the device by the application.
 
-The Force Dimension ROS2 node allows for the configuration of gravity compensation via ROS2 parameters.
+The Force Dimension ROS2 node allows for the configuration of gravity 
+compensation via ROS2 parameters.
 
 ## Parameters
 
@@ -35,10 +42,12 @@ Dimension node during startup configuration, and will be recorded in the text
 log. The default value for the Novint Falcon is ``0.190``. The default value 
 for the delta.3 is ``0.279``.
 
-[^effector_mass]: The effector mass is set via the [dhdSetEffectorMass] function in the Force Dimension SDK. Gravity compensation is enabled via the 
-[dhdSetGravityCompensation] function.
+[^effector_mass]: The effector mass is set via the [dhdSetEffectorMass] 
+                  function in the Force Dimension SDK. Gravity compensation is 
+                  enabled via the [dhdSetGravityCompensation] function.
 
-The following is a sample YAML configuration file for setting the gravity compensation parameters:
+The following is a sample YAML configuration file for setting the gravity 
+compensation parameters:
 
 ```
 /robot/force_dimension:
@@ -50,70 +59,62 @@ The following is a sample YAML configuration file for setting the gravity compen
 Both parameters are currently configured to trigger an update whenever they are 
 modified. So -- for example -- changing the ``gravity_compensation`` parameter 
 to ``false`` while the node is running should be expected to instantly disable 
-gravity compensation.[^Technically, the update will take effect the instant 
-that a new force command is delivered to the robot.]
-
-## Testing and calibration
-
-To run the Force Dimension Node:
-
-1. Navigate to the relevant ROS2 workspace (i.e., either the _testing_ or _stable_ branch of the NML NHP workspace):
-   ```cd D:\dev\nml_nhp\ros_workspace-testing```
-2. Prepare a ROS2 environment by [sourcing the ROS2 setup script](https://docs.ros.org/en/galactic/Tutorials/Workspace/Creating-A-Workspace.html#source-ros-2-environment): 
-   
-   ```
-   D:\dev\ROS2\Galactic\setup.bat
-   ```
-3. Prepare the overlay environment by [sourcing the local workspace setup script](https://docs.ros.org/en/galactic/Tutorials/Workspace/Creating-A-Workspace.html#source-the-overlay): ``install\local_setup.bat``.
-4. Start the ROS2 node: ``ros2 run force_dimension node``
-
-To dynamically adjust parameters:
-
-1. Navigate to the relevant ROS2 workspace (i.e., either the _testing_ or _stable_ branch of the NML NHP workspace): ``cd D:\dev\nml_nhp\ros_workspace-testing``.
-2. Prepare a ROS2 environment by [sourcing the ROS2 setup script](https://docs.ros.org/en/galactic/Tutorials/Workspace/Creating-A-Workspace.html#source-ros-2-environment):
-   
-   ```D:\dev\ROS2\Galactic\setup.bat```
-3. Enable gravity compensation:
-   
-   ```
-   ros2 param set /robot/force_dimension gravity_compensation true
-   ```
-4. Specify effector mass (kilograms):
-   
-   ```
-   ros2 param set /robot/force_dimension effector_mass_kg 0.45
-   ```
-5. Gravity compensation updates only take effect after a force command has been 
-   delivered to the robot. Trigger an update by sending a single force command: 
-   
-   ```
-   ros2 topic pub --once \
-      /robot/force geometry_msgs/msg/Vector3 \
-      "{x: 0.0, y: 0.0, z: 0.0}"
-   ```
-6. In order to calibrate gravity compensation, try a second effector mass 
-   setting:
-   
-   ```
-   ros2 param set /robot/force_dimension effector_mass_kg 0.55
-   ```
-7. Trigger an update:
-   
-   ```
-   ros2 topic pub --once \
-      /robot/force geometry_msgs/msg/Vector3 \
-      "{x: 0.0, y: 0.0, z: 0.0}"
-   ```
-8. If the effector mass is not known _a priori_, then repeat the prior two 
-   steps until you've found an effector mass that produces the desired result.
+gravity compensation.[^Technically, the update will take effect only when a new 
+force command is delivered to the robot.]
 
 Gravity compensation is most effective when the ``effector_mass_kg`` parameter 
 is close to the true mass of the robotic endpoint effector. When the parameter 
 setting is slightly less than the true value, the robot can be expected to 
 descend at a slower pace than it would without compensation. When the parameter 
 setting is slightly higher than the true value, the effector will rise. 
-Identifying the optimal parameter value may require some trial-and-error 
-guessing.
+Identifying the optimal parameter value may require some trial-and-error.
+
+## Testing and calibration
+
+In a [configured ROS2 environment][configure_ros2_environment], run the Force 
+Dimension node:
+
+```ros2 run force_dimension node```
+
+During initialization, the node will report the configured effector mass. For 
+this example, a mass of ``0.190`` kg will be assumed.
+
+In a second configured environment, simulate a reduced-gravity environment by 
+increasing the effector mass by 25% (``0.190 * 1.25 = 0.2375``):
+
+```
+ros2 param set /robot/force_dimension effector_mass_kg 0.2375
+```
+
+In the first ROS2 environment, the Force Dimension should report this parameter 
+change to the log. However, the parameter change has no effect until a force 
+command is delivered to the robot. To trigger the gravity compensation update, 
+send a force command:
+
+```
+ros2 topic pub --once \
+  /robot/force geometry_msgs/msg/Vector3 \
+  "{x: 0.0, y: 0.0, z: 0.0}"
+```
+
+At this point, the robot can be considered to be operating within a simulated 
+physical environment, in which gravity has been reduced by 25%. Depending on 
+the robot, and how it is set up, this might cause the end effector to rise 
+toward the top of the workspace. If this does not happen, then increase the 
+effector mass parameter by small increments -- re-issuing the force command for 
+each parameter change -- until the end effector moves upward.
+
+To confirm the effect, disable gravity compensation:
+
+```
+ros2 param set /robot/force_dimension gravity_compensation true
+```
+
+For this parameter change to take effect, a force command must be issued to the 
+robot, as before. _Be prepared to catch the end effector when the change takes 
+effect_. With gravity compensation disabled, the force of gravity will 
+typically cause the robotic effector to drop.
+
 
 
 
@@ -122,5 +123,7 @@ guessing.
 [fd_gravity_compensation]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhd_glossary.html#dhd_gravity
 
 [dhdSetGravityCompensation]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a15dcf0e3c33142b2ac79fd023d03c641
+
+[configure_ros2_environment]: https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html
 
 
