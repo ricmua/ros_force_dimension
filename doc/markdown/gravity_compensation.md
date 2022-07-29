@@ -28,7 +28,7 @@ The [Force Dimension SDK](force_dimension.md) documentation describes
   applied whenever a force command is sent to the device by the application.
 
 The Force Dimension ROS2 node allows for the configuration of gravity 
-compensation via ROS2 parameters.
+compensation via [ROS2 parameters][ros2_parameters].
 
 ## Parameters
 
@@ -38,7 +38,7 @@ value that simply determines whether or not gravity compensation is enabled.
 The ``effector_mass_kg`` defines the mass of the robotic end-effector, in 
 kilograms. This value is used by the Force Dimension SDK to compute a 
 compensatory force.[^effector_mass] The default value is reported by the Force 
-Dimension node during startup configuration, and will be recorded in the text 
+Dimension node during startup configuration, and is recorded to the text 
 log. The default value for the Novint Falcon is ``0.190``. The default value 
 for the delta.3 is ``0.279``.
 
@@ -46,8 +46,8 @@ for the delta.3 is ``0.279``.
                   function in the Force Dimension SDK. Gravity compensation is 
                   enabled via the [dhdSetGravityCompensation] function.
 
-The following is a sample YAML configuration file for setting the gravity 
-compensation parameters:
+The following is a sample [YAML configuration file][ros2_yaml_config] for 
+setting the gravity compensation parameters:
 
 ```
 /robot/force_dimension:
@@ -56,31 +56,35 @@ compensation parameters:
     effector_mass_kg: 0.279
 ```
 
-Both parameters are currently configured to trigger an update whenever they are 
-modified. So -- for example -- changing the ``gravity_compensation`` parameter 
-to ``false`` while the node is running should be expected to instantly disable 
-gravity compensation.[^Technically, the update will take effect only when a new 
-force command is delivered to the robot.]
+Both parameters trigger an update of the robot's configuration immediately, but 
+the forces applied to the end effector do not change until a new command is 
+issued. This is worth emphasizing: _After a change in parameters, the 
+compensatory forces applied to the robotic end effector are updated only after 
+the next force command is issued to the robot_.
 
 Gravity compensation is most effective when the ``effector_mass_kg`` parameter 
 is close to the true mass of the robotic endpoint effector. When the parameter 
 setting is slightly less than the true value, the robot can be expected to 
 descend at a slower pace than it would without compensation. When the parameter 
 setting is slightly higher than the true value, the effector will rise. 
-Identifying the optimal parameter value may require some trial-and-error.
+Identifying the optimal parameter value may require some trial-and-error, if 
+the mass of the effector is uncertain.
+
 
 ## Testing and calibration
 
 In a [configured ROS2 environment][configure_ros2_environment], run the Force 
 Dimension node:
 
-```ros2 run force_dimension node```
+```
+ros2 run force_dimension node
+```
 
 During initialization, the node will report the configured effector mass. For 
 this example, a mass of ``0.190`` kg will be assumed.
 
-In a second configured environment, simulate a reduced-gravity environment by 
-increasing the effector mass by 25% (``0.190 * 1.25 = 0.2375``):
+In a second configured environment, simulate reduced-gravity by increasing the 
+effector mass by 25% (``0.190 * 1.25 = 0.2375``):
 
 ```
 ros2 param set /robot/force_dimension effector_mass_kg 0.2375
@@ -92,8 +96,7 @@ command is delivered to the robot. To trigger the gravity compensation update,
 send a force command:
 
 ```
-ros2 topic pub --once \
-  /robot/force geometry_msgs/msg/Vector3 \
+ros2 topic pub --once /robot/command/force geometry_msgs/msg/Vector3 \
   "{x: 0.0, y: 0.0, z: 0.0}"
 ```
 
@@ -102,7 +105,7 @@ physical environment, in which gravity has been reduced by 25%. Depending on
 the robot, and how it is set up, this might cause the end effector to rise 
 toward the top of the workspace. If this does not happen, then increase the 
 effector mass parameter by small increments -- re-issuing the force command for 
-each parameter change -- until the end effector moves upward.
+each parameter change -- until the end effector is observed to move upward.
 
 To confirm the effect, disable gravity compensation:
 
@@ -126,4 +129,7 @@ typically cause the robotic effector to drop.
 
 [configure_ros2_environment]: https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html
 
+[ros2_parameters]: https://docs.ros.org/en/humble/Tutorials/Parameters/Understanding-ROS2-Parameters.html
+
+[ros2_yaml_config]: https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Parameters/Understanding-ROS2-Parameters.html#ros2-param-dump
 
