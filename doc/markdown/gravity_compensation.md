@@ -110,7 +110,7 @@ each parameter change -- until the end effector is observed to move upward.
 To confirm the effect, disable gravity compensation:
 
 ```
-ros2 param set /robot/force_dimension gravity_compensation true
+ros2 param set /robot/force_dimension gravity_compensation false
 ```
 
 For this parameter change to take effect, a force command must be issued to the 
