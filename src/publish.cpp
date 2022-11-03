@@ -119,7 +119,7 @@ void force_dimension::Node::PublishGripperGap() {
   double gap = -1;
   bool has_gripper = hardware_disabled_ ? false : dhdHasGripper(device_id_);
   int result = has_gripper ? dhdGetGripperGap(&gap, device_id_) : 0;
-  if(result != 0)  {
+  if((result != 0) & (result != DHD_TIMEGUARD))  {
       std::string message = "Failed to read gripper gap: ";
       message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
       Log(message);
