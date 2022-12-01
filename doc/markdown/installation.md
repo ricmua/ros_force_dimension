@@ -51,7 +51,7 @@ Some additional steps might be required for Linux builds. In particular, some
 additional [dependencies](doc/markdown/installation-linux_dependencies.md) 
 might need to be installed via a package manager, and dynamic libraries might 
 need to be registered with the build system via 
-[ldconfig][doc/markdown/installation-ldconfig.md].
+[ldconfig](doc/markdown/installation-ldconfig.md).
 
 If the SDK builds, but the applications fail during testing, then 
 [device permissions](doc/markdown/testing-device_permissions.md) might need to 
