@@ -92,7 +92,9 @@ void Node::on_configure(void) {
   declare_parameter<int>("feedback_sample_decimation.button", 50);
   declare_parameter<int>("feedback_sample_decimation.gripper_gap", 50);
   declare_parameter<int>("feedback_sample_decimation.gripper_angle", 50);
-  
+  declare_parameter<float>("effector_mass_kg", 0.190000);
+  declare_parameter<bool>("gravity_compensation", true);
+
   // Create the force control subcription.
   SubscribeForce();
 }
@@ -172,6 +174,31 @@ void Node::on_activate(void) {
   
   // Reset the sample counter.
   sample_number_ = 0;
+  
+  // Get baseline effector mass to be used for gravity compensation.
+  baseline_effector_mass_kg_ = get_effector_mass();
+  {
+      std::string message = "BASELINE EFFECTOR MASS: ";
+      message += std::to_string(baseline_effector_mass_kg_);
+      message += " kg";
+      Log(message);
+  }
+  
+  // Set effector mass to be used for gravity compensation.
+  // Defaults to the ROS parameter value.
+  set_effector_mass();
+  
+  // Enable gravity compensation.
+  // Defaults to the ROS parameter value.
+  set_gravity_compensation();
+  
+  // Add a set parameters callback.
+  // Initialize a function pointer to the set_parameters_callback member with 
+  // one argument placeholder (for the parameter vector).
+  auto parameters_callback 
+    = std::bind(&Node::set_parameters_callback, this, std::placeholders::_1);
+  parameters_callback_handle_
+    = this->add_on_set_parameters_callback(parameters_callback);
 }
 
 

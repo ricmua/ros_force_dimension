@@ -21,6 +21,9 @@
 // Import message types.
 #include "messages.hpp"
 
+// Import the parameter management message info.
+#include "rcl_interfaces/msg/set_parameters_result.hpp"
+
 
 
 /** The ForceDimension namespace.
@@ -104,6 +107,19 @@ namespace force_dimension {
     // Check whether or not the current data sample should be published.
     bool IsPublishableSample(std::string);
     
+    // Set effector mass.
+    double get_effector_mass(void);
+    void set_effector_mass(double mass_kg = -1);
+    void reset_effector_mass(void);
+    
+    // Enable and disable gravity compensation.
+    void set_gravity_compensation(bool);
+    void set_gravity_compensation();
+    
+    // Parameters set callback.
+    rcl_interfaces::msg::SetParametersResult 
+      set_parameters_callback(const std::vector<rclcpp::Parameter> &);
+   
    private:
     int device_id_;
     float publication_interval_s_;
@@ -111,6 +127,7 @@ namespace force_dimension {
     bool configured_;
     int sample_number_;
     bool hardware_disabled_;
+    double baseline_effector_mass_kg_;
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<PositionMessage>::SharedPtr position_publisher_;
     rclcpp::Publisher<ButtonMessage>::SharedPtr button_publisher_;
@@ -119,6 +136,7 @@ namespace force_dimension {
     //rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
     rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;
+    OnSetParametersCallbackHandle::SharedPtr parameters_callback_handle_;
   };
 
 }

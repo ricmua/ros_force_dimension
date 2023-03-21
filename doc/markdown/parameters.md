@@ -99,6 +99,8 @@ Force Dimension node:
     disable_hardware: false
     gripper:
       emulate_button: false
+    gravity_compensation: true
+    effector_mass_kg: 0.279
 ```
 
 
