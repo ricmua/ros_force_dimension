@@ -1,6 +1,6 @@
 <!-- License
 
-Copyright 2022 Neuromechatronics Lab, Carnegie Mellon University
+Copyright 2022-2023 Neuromechatronics Lab, Carnegie Mellon University
 
 Created by: a. whit. (nml@whit.contact)
 
