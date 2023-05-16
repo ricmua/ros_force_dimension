@@ -90,17 +90,22 @@ namespace force_dimension {
     // Publish gripper opening angle in radians.
     void PublishGripperAngle(void);
     
-    //// Publishes robot velocity messages.
-    //void PublishVelocity(void);
+    // Publishes robot velocity messages.
+    void PublishVelocity(void);
     
     //// Publishes robot force messages.
     //void PublishForce(void);
     
     // Subscribes to ROS messages that indicate an instantaneous force to be 
-    // applied by the robot.
+    // applied to the robot endpoint.
     void SubscribeForce(void);
     
-    // Applies a force to the robotic manipulandum, as requested via ROS message.
+    // Subscribes to ROS messages that indicate an instantaneous force to be 
+    // applied to the gripper by the robot.
+    void SubscribeGripperForce(void);
+    
+    // Applies a force to the robotic manipulandum, as requested via ROS 
+    // message.
     void force_callback(const ForceMessage);
     //void ApplyForce
     
@@ -133,7 +138,7 @@ namespace force_dimension {
     rclcpp::Publisher<ButtonMessage>::SharedPtr button_publisher_;
     rclcpp::Publisher<GripperGapMessage>::SharedPtr gripper_gap_publisher_;
     rclcpp::Publisher<GripperAngleMessage>::SharedPtr gripper_angle_publisher_;
-    //rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
+    rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
     rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;
     OnSetParametersCallbackHandle::SharedPtr parameters_callback_handle_;

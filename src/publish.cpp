@@ -42,6 +42,7 @@ void force_dimension::Node::PublishState() {
   PublishButton();
   PublishGripperGap();
   PublishGripperAngle();
+  PublishVelocity();
   //publish_velocity();
   //publish_force();
   //publish_button();
@@ -166,5 +167,33 @@ void force_dimension::Node::PublishGripperAngle() {
 }
 
 
-#endif // FORCE_DIMENSION_PUBLISH_H_
+/** Publish the velocity of the robotic end-effector.
+ *  
+ */
+void force_dimension::Node::PublishVelocity() {
+  
+  // Retrieve the velocity.
+  double vx, vy, vz;
+  auto result = hardware_disabled_ 
+              ? DHD_NO_ERROR 
+              : dhdGetLinearVelocity(&vx, &vy, &vz);
+  if(result < DHD_NO_ERROR)  {
+      std::string message = "Failed to read velocity: ";
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
+      Log(message);
+      on_error();
+  }
+  
+  // Prepare a message.
+  auto message          = VelocityMessage();
+  message.x             = vx;
+  message.y             = vy;
+  message.z             = vz;
+  //message.sample_number = sample_number;
+  
+  // Publish.
+  if(IsPublishableSample("velocity")) velocity_publisher_->publish(message);
+}
+
+
 
