@@ -196,4 +196,5 @@ void force_dimension::Node::PublishVelocity() {
 }
 
 
+#endif  //FORCE_DIMENSION_PUBLISH_H_
 
