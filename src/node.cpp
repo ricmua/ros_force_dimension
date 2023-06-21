@@ -175,11 +175,11 @@ void Node::on_activate(void) {
   float sample_interval_s;
   if(get_parameter("sample_interval_s", sample_interval_s))
   {
-    int publication_interval_ms = round(sample_interval_s * 1000);
-    std::chrono::milliseconds publication_interval(publication_interval_ms);
+    int publication_interval_ns = round(sample_interval_s * 1e9);
+    std::chrono::nanoseconds publication_interval(publication_interval_ns);
     timer_ = create_wall_timer(publication_interval, callback);
     std::string message = "Sample timer initialized: Interval (ms) = ";
-    message += std::to_string(publication_interval_ms);
+    message += std::to_string(publication_interval_ns * (1e3 / 1e9));
     Log(message);
   }
   else
