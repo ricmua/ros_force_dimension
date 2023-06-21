@@ -152,6 +152,21 @@ void Node::on_activate(void) {
   }
   else Log("Force Dimension interface initialized.");
   
+  // Report the BASELINE communication refresh rate.
+  result = hardware_disabled_ ? -1.0 : dhdGetComFreq(device_id_);
+  if(result == 0.0) {
+      std::string message = "Failure getting communication refresh rate: ";
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
+      Log(message);
+  }
+  else
+  {
+      std::string message = "Communication refresh rate: ";
+      message += std::to_string(result);
+      message += " kHz";
+      Log(message);
+  }
+  
   // Initialize the publication interval variable and create the timer.
   // Sets the ROS publication interval for state messages.
   // The sampling rate should be set low enough that any receiving nodes 
