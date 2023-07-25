@@ -32,7 +32,7 @@ complete solution is as follows:
     * This can be verified with the command ``lsusb -v -d 0403:cb48``.
     * The vendor and product ID should also be visible in the ``dmesg`` log.
 7. Create the file ``/etc/udev/rules.d/11-forcedimension.rules`` and add the following line:
-    * ``SUBSYSTEM=="usb", ACTION=="add", ATTR{idVendor}=="0403", ATTR{idProduct}=="cb48", MODE:="force_dimension"``
+    * ``SUBSYSTEM=="usb", ACTION=="add", ATTR{idVendor}=="0403", ATTR{idProduct}=="cb48", MODE:="0666", GROUP:="force_dimension"``
     * The appropriate vendor and product IDs are inserted in the appropriate place.
     * Save the file.
 8. Issue the command ``udevadm control --reload-rules``, and/or ``udevadm control --reload``.
