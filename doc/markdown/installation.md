@@ -48,13 +48,13 @@ issue a terminal command like the following:
 ### Additional steps: Linux
 
 Some additional steps might be required for Linux builds. In particular, some 
-additional [dependencies](doc/markdown/installation-linux_dependencies.md) 
+additional [dependencies](installation-linux_dependencies.md) 
 might need to be installed via a package manager, and dynamic libraries might 
 need to be registered with the build system via 
-[ldconfig](doc/markdown/installation-ldconfig.md).
+[ldconfig](installation-ldconfig.md).
 
 If the SDK builds, but the applications fail during testing, then 
-[device permissions](doc/markdown/testing-device_permissions.md) might need to 
+[device permissions](testing-device_permissions.md) might need to 
 be adjusted.
 
 ### Additional steps: Windows
@@ -80,7 +80,7 @@ Once the SDK is built, test it by running one of the included binaries (e.g.,
 ``bin/gravity`` or ``bin\gravity.exe``). 
 
 Note: Force Dimension robots must be **calibrated** to function properly. See 
-the section on [robot calibration](doc/markdown/calibration.md) for further 
+the section on [robot calibration](calibration.md) for further 
 details.
 
 
