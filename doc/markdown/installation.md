@@ -51,11 +51,18 @@ Some additional steps might be required for Linux builds. In particular, some
 additional [dependencies](installation-linux_dependencies.md) 
 might need to be installed via a package manager, and dynamic libraries might 
 need to be registered with the build system via 
-[ldconfig](installation-ldconfig.md).
+[ldconfig](installation-linux_ldconfig.md).
 
 If the SDK builds, but the applications fail during testing, then 
 [device permissions](testing-device_permissions.md) might need to 
 be adjusted.
+
+<!--
+Note that the [`ForceDimensionSDKConfig.cmake`] assumes version 3 of the Force 
+Dimension SDK.
+-->
+
+[`ForceDimensionSDKConfig.cmake`]: https://github.com/ricmua/ros_force_dimension/blob/6669f67a083623fbb61f63d52944b9277b3a6a66/ForceDimensionSDKConfig.cmake#L1
 
 ### Additional steps: Windows
 
