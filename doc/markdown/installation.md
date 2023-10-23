@@ -11,8 +11,8 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 # Installation
 
-Installation of this ROS2 package has been tested with Ubuntu 20.04 and Windows 
-10.
+Installation of this ROS2 package has been tested with Ubuntu 20.04, 22.04, Windows 
+10 and Windows 11.
 
 ## Force Dimension SDK
 
@@ -70,6 +70,10 @@ If building the Force Dimension SDK from the command line, then an appropriate
 [command line environment][msvc_terminal] must be initialized.
 
 [msvc_terminal]: https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170
+
+### Additional steps: WSL
+
+If using WSL to interface with physical usb devices, you will need to set up [USB pass-through](doc/markdown/installation-wsl.md) access.
 
 ### Build
 
