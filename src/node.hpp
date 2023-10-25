@@ -121,6 +121,10 @@ namespace force_dimension {
     void set_gravity_compensation(bool);
     void set_gravity_compensation();
     
+    // Enable and disable forces.
+    void set_enable_force(bool);
+    void set_enable_force();
+    
     // Parameters set callback.
     rcl_interfaces::msg::SetParametersResult 
       set_parameters_callback(const std::vector<rclcpp::Parameter> &);

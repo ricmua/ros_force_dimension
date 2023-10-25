@@ -34,9 +34,11 @@ force_dimension::Node::set_parameters_callback
   result.successful = true;
   for (const auto & parameter : parameters) {
     if(parameter.get_name()  == "effector_mass_kg")
-       set_effector_mass(parameter.as_double()); //get_value()
+        set_effector_mass(parameter.as_double()); //get_value()
     if(parameter.get_name()  == "gravity_compensation")
         set_gravity_compensation(parameter.as_bool());
+    if(parameter.get_name()  == "enable_force")
+        set_enable_force(parameter.as_bool());
   }
   return result;
 }
