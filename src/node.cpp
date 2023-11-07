@@ -95,6 +95,7 @@ void Node::on_configure(void) {
   declare_parameter<int>("feedback_sample_decimation.gripper_angle", 50);
   declare_parameter<float>("effector_mass_kg", 0.190000);
   declare_parameter<bool>("gravity_compensation", true);
+  declare_parameter<bool>("enable_force", true);
 
   // Create the force control subcription.
   SubscribeForce();

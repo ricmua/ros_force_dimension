@@ -38,7 +38,8 @@ endif()
 
 add_executable(node src/entry_point.cpp src/node.cpp 
                     src/log.cpp src/publish.cpp src/subscribe.cpp
-                    src/parameters.cpp src/gravity_compensation.cpp)
+                    src/parameters.cpp src/gravity_compensation.cpp
+                    src/forces.cpp)
 ament_target_dependencies(node rclcpp geometry_msgs 
                           example_interfaces ForceDimensionSDK)
 
