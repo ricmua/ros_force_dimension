@@ -3,8 +3,12 @@
 
 if(UNIX)
   set(ForceDimensionSDK_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/include")
-  find_library(FD_LIBDHD NAMES libdhd PATHS ${CMAKE_CURRENT_LIST_DIR}/lib/release/*)
-  find_library(FD_LIBDRD NAMES libdrd PATHS ${CMAKE_CURRENT_LIST_DIR}/lib/release/*)
+  find_library(FD_LIBDHD 
+               NAMES dhd 
+               PATHS ${CMAKE_CURRENT_LIST_DIR}/lib/*/*)
+               #PATHS ${CMAKE_CURRENT_LIST_DIR}/lib/*
+               #PATH_SUFFIXES "lin-x86_64-gcc")
+  find_library(FD_LIBDRD NAMES drd PATHS ${CMAKE_CURRENT_LIST_DIR}/lib/*/*)
   set(ForceDimensionSDK_LIBRARIES "${FD_LIBDHD};${FD_LIBDRD}")
 elseif(WIN32 OR MSVC)
   set(ForceDimensionSDK_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/include")
