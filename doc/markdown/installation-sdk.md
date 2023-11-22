@@ -45,10 +45,8 @@ installing the SDK are as follows:
 It is **not necessary** to build the examples provided with the Force Dimension 
 SDK. The SDK can be used to build the ROS2 package as it is. However, it can be 
 useful for confirming the installation, and for debugging with a native build.
-
 For Linux sytems, the SDK build is accomplished by running the `make` command 
-in a terminal at the root of the Force Dimension SDK path.
-
+in a terminal at the root of the Force Dimension SDK path. 
 For Windows systems, use MS Visual Studio to [build][msvc_build] the project. 
 Remember to properly [initialize the environment][msvc_terminal].
 
@@ -73,5 +71,4 @@ the section on [robot calibration](calibration.md) for further details.
 
 
 [msvc_build]: https://docs.microsoft.com/en-us/visualstudio/ide/compiling-and-building-in-visual-studio?view=vs-2022
-
 
