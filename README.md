@@ -32,7 +32,13 @@ queried from the [command line](doc/markdown/command_line.md).
 
 When designing client nodes that can interact with the Force Dimension server 
 node, the [Python example](doc/markdown/python_client_example.md) is a good 
-place to start. Also see the documentation related to the 
+place to start. The example can be invoked with a single command:
+
+```bash
+> ros2 launch force_dimension example.launch.py
+```
+
+Also see the documentation related to the 
 [topics](doc/markdown/topics.md) and [parameters](doc/markdown/parameters.md) 
 associated with the ROS2 node.
 
@@ -65,15 +71,13 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 [ROS2 Galactic]: https://docs.ros.org/en/galactic/index.html
 
+[ROS2 Humble]: https://docs.ros.org/en/humble/index.html
 
 [ROS2 Iron]: https://docs.ros.org/en/iron/index.html
 
-[ROS2 Humble]: https://docs.ros.org/en/humble/index.html
-
-
 [ROS2 package]: https://docs.ros.org/en/iron/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html
 
-Neuromechatronics Lab]: https://www.meche.engineering.cmu.edu/faculty/neuromechatronics-lab.html
+[Neuromechatronics Lab]: https://www.meche.engineering.cmu.edu/faculty/neuromechatronics-lab.html
 
 [configured ROS2 environment]: https://docs.ros.org/en/iron/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html
 
