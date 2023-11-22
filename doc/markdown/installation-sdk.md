@@ -31,7 +31,7 @@ installing the SDK are as follows:
    * Windows: `set ForceDimensionSDK_DIR=C:\path\to\sdk`
    
 4. Set up the build environment. If building on Linux, then some 
-   [additional configuration](doc/markdown/installation-sdk-linux.md) is 
+   [additional configuration](/doc/markdown/installation-sdk-linux.md) is 
    required. If building on Windows, then an appropriate 
    [command line environment][msvc_terminal] must be initialized.
 
