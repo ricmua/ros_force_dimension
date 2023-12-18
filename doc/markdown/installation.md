@@ -33,7 +33,7 @@ The Force Dimension ROS2 package is built in the
       SDK. When building on Linux systems, some additional command line options 
       might be required. See the [SDK instructions for Linux].
 
-## Example: Linux build
+### Example: Linux build
 
 As an example, the following commands might be used to build the package on an 
 Ubuntu system.
