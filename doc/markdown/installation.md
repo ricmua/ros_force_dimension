@@ -30,7 +30,8 @@ The Force Dimension ROS2 package is built in the
 [^4]: Reminder: The `ForceDimensionSDK_DIR` environmental variable must be 
       set during the build process. See the 
       [instructions](installation-sdk.md) for installing the Force Dimension 
-      SDK.
+      SDK. When building on Linux systems, some additional command line options 
+      might be required. See the [SDK instructions for Linux].
 
 
 
@@ -44,4 +45,5 @@ The Force Dimension ROS2 package is built in the
 
 [ROS2 build system]: https://docs.ros.org/en/iron/Concepts/About-Build-System.html
 
+[SDK instructions for Linux]: https://github.com/ricmua/ros_force_dimension/blob/main/doc/markdown/installation-sdk-linux.md#libraries
 
