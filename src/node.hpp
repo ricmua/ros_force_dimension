@@ -32,7 +32,7 @@ namespace force_dimension {
 
   /** A ROS2 node for interfacing with a Force Dimension haptic robot.
    *  
-   *  Periodically emits ROS2 messages containing the sampled position of a Force
+   *  Periodically emits ROS2 messages containing the sampled pose of a Force
    *  Dimension robotic manipulandum (e.g., delta.3, sigma.7, or Novint Falcon).
    *  Accepts ROS2 messages that contain an instantaneous force, or vibration, to 
    *  be applied to the manipulandum.
@@ -78,7 +78,7 @@ namespace force_dimension {
     // Publishes robot state feedback.
     void PublishState(void);
     
-    // Publishes robot position messages.
+    // Publishes robot pose messages.
     void PublishPose(void);
     
     // Publishes robot button messages.

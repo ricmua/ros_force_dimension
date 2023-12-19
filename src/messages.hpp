@@ -27,7 +27,7 @@ namespace force_dimension {
 
   // Message type definitions.
 
-  /** Effector position ROS message type definition.
+  /** Effector pose ROS message type definition.
    *  
    */
   typedef geometry_msgs::msg::Pose PoseMessage;

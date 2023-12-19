@@ -30,10 +30,10 @@ namespace force_dimension {
     
   };
 
-  /** Topic for publishing robot position feedback.
+  /** Topic for publishing robot pose feedback.
    *  
    */
-  const char POSITION_FEEDBACK_TOPIC[] = "feedback/position";
+  const char POSE_FEEDBACK_TOPIC[] = "feedback/pose";
 
   /** Topic for publishing button press feedback.
    *  

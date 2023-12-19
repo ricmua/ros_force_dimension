@@ -22,8 +22,8 @@ Topics are identified by fully-qualified
 All fully-qualified topic names are prefixed with a 
 [namespace](namespace.md). By default, the namespace for the 
 Force Dimension node is ``robot``. In this documentation, the node namespace is 
-excluded, so that the fully-qualified topic name ``/robot/feedback/position`` 
-would here be referred to as ``feedback/position``.
+excluded, so that the fully-qualified topic name ``/robot/feedback/pose`` 
+would here be referred to as ``feedback/pose``.
 
 ## Feedback topics
 
@@ -31,9 +31,9 @@ A subset of topics provide information about the state of the Force Dimension
 robot. These topics are organized under the ``feedback`` relative namespace. 
 The following topics are currently implemented:
 
-* ``feedback/position``: Carries [Point][geometry_msgs_point] messages that 
-  describe the current position of the robotic end-effector (as returned by the 
-  [dhdGetPosition] function of the Force Dimension SDK).
+* ``feedback/pose``: Carries [Pose][geometry_msgs_pose] messages that 
+  describe the current pose of the robotic end-effector (as returned by the 
+  [dhdGetPositionAndOrientationFrame] function of the Force Dimension SDK).
 * ``feedback/velocity``: Carries [Vector3][geometry_msgs_vector3] messages that 
   describe the current velocity of the robotic end-effector (as returned by the 
   [dhdGetLinearVelocity] function of the Force Dimension SDK). See the 
@@ -63,7 +63,7 @@ information about feedback decimation.
 
 [dhdGetGripperAngleRad]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#aacb9cbecf42f01330bd9a8fc512011d9
 
-[dhdGetPosition]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#ac6910076186b2709dec3c2bfa38628c2
+[dhdGetPositionAndOrientationFrame]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a4e6e5502f908607bfdf1e017d7fa76ec
 
 [dhdGetButtonMask]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a5fbdfdb991ebe0faa92f1bcaffde5a75
 
@@ -73,7 +73,7 @@ information about feedback decimation.
 
 [example_interfaces_int32]: https://docs.ros2.org/latest/api/example_interfaces/msg/Int32.html
 
-[geometry_msgs_point]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Point.html
+[geometry_msgs_pose]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Pose.html
 
 [ros_topics]: https://docs.ros.org/en/humble/Tutorials/Topics/Understanding-ROS2-Topics.html
 

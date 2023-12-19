@@ -36,7 +36,7 @@
  *  
  */
  
-/** Publish state feedback. The state consists of the position, velocity, and 
+/** Publish state feedback. The state consists of the pose, velocity, and 
  *  force.
  */
 void force_dimension::Node::PublishState() {
@@ -89,7 +89,7 @@ void force_dimension::Node::PublishPose() {
   message.orientation   = tf2::toMsg(q);
   
   // Publish.
-  if(IsPublishableSample("position")) pose_publisher_->publish(message);
+  if(IsPublishableSample("pose")) pose_publisher_->publish(message);
 }
 
 
