@@ -53,7 +53,7 @@ namespace force_dimension {
   /** Topic for subscribing to robot force commands.
    *  
    */
-  const char FORCE_COMMAND_TOPIC[] = "command/force";
+  const char WRENCH_COMMAND_TOPIC[] = "command/wrench";
   
   /** Topic for gripper gap width feedback.
    *  

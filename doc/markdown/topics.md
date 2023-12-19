@@ -60,6 +60,11 @@ Feedback topics can be decimated, in order to reduce the number of sent
 messages. See the [parameters documentation](parameters.md) for 
 information about feedback decimation.
 
+## Command topics
+
+* ``command/wrench``: Accepts [Wrench][geometry_msgs_wrench] messages that set 
+  the force/torque applied by the device (as set by the [dhdSetForceAndTorque] 
+  function of the Force Dimension SDK).
 
 [dhdGetGripperAngleRad]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#aacb9cbecf42f01330bd9a8fc512011d9
 
@@ -75,6 +80,8 @@ information about feedback decimation.
 
 [geometry_msgs_pose]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Pose.html
 
+[geometry_msgs_wrench]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Wrench.html
+
 [ros_topics]: https://docs.ros.org/en/humble/Tutorials/Topics/Understanding-ROS2-Topics.html
 
 [ros2_name_constraints]: http://design.ros2.org/articles/topic_and_service_names.html#ros-2-topic-and-service-name-constraints
@@ -84,6 +91,8 @@ information about feedback decimation.
 [dhdGetLinearVelocity]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a2a29fb157bbcd49cd1807a5febf314e7
 
 [dhdGetAngularVelocityRad]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#ac712aa9c49acad0e9e30c28b732fc5ca
+
+[dhdSetForceAndTorque]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a1b2da67ae01e69a07cf80695ec055bd6
 
 [fd_velocity_estimation]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/index.html#dhd_velocity_modes
 

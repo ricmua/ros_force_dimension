@@ -96,17 +96,17 @@ namespace force_dimension {
     //// Publishes robot force messages.
     //void PublishForce(void);
     
-    // Subscribes to ROS messages that indicate an instantaneous force to be 
-    // applied to the robot endpoint.
-    void SubscribeForce(void);
+    // Subscribes to ROS messages that indicate an instantaneous force/torque
+    // to be applied to the robot endpoint.
+    void SubscribeWrench(void);
     
     // Subscribes to ROS messages that indicate an instantaneous force to be 
     // applied to the gripper by the robot.
     void SubscribeGripperForce(void);
     
-    // Applies a force to the robotic manipulandum, as requested via ROS 
+    // Applies a wrench to the robotic manipulandum, as requested via ROS 
     // message.
-    void force_callback(const ForceMessage);
+    void wrench_callback(const WrenchMessage);
     //void ApplyForce
     
     // Check whether or not the current data sample should be published.
@@ -144,7 +144,7 @@ namespace force_dimension {
     rclcpp::Publisher<GripperAngleMessage>::SharedPtr gripper_angle_publisher_;
     rclcpp::Publisher<TwistMessage>::SharedPtr twist_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
-    rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;
+    rclcpp::Subscription<WrenchMessage>::SharedPtr wrench_subscription_;
     OnSetParametersCallbackHandle::SharedPtr parameters_callback_handle_;
   };
 

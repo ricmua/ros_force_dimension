@@ -98,7 +98,7 @@ void Node::on_configure(void) {
   declare_parameter<bool>("enable_force", true);
 
   // Create the force control subcription.
-  SubscribeForce();
+  SubscribeWrench();
 }
 
 
