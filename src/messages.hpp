@@ -16,7 +16,7 @@
 
 
 // Import message types.
-#include "geometry_msgs/msg/point.hpp"
+#include "geometry_msgs/msg/pose.hpp"
 #include "geometry_msgs/msg/vector3.hpp"
 #include "example_interfaces/msg/int32.hpp"
 #include "example_interfaces/msg/float64.hpp"
@@ -30,7 +30,7 @@ namespace force_dimension {
   /** Effector position ROS message type definition.
    *  
    */
-  typedef geometry_msgs::msg::Point PositionMessage;
+  typedef geometry_msgs::msg::Pose PoseMessage;
 
   /** Effector velocity ROS message type definition.
    *  

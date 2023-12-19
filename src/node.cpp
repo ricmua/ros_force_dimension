@@ -62,7 +62,7 @@ void Node::on_configure(void) {
   
   // Create the position state publisher.
   auto topic = POSITION_FEEDBACK_TOPIC;
-  position_publisher_ = create_publisher<PositionMessage>(topic, qos);
+  pose_publisher_ = create_publisher<PoseMessage>(topic, qos);
   
   // Create the button state publisher.
   topic = BUTTON_FEEDBACK_TOPIC;

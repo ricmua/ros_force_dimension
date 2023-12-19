@@ -79,7 +79,7 @@ namespace force_dimension {
     void PublishState(void);
     
     // Publishes robot position messages.
-    void PublishPosition(void);
+    void PublishPose(void);
     
     // Publishes robot button messages.
     void PublishButton(void);
@@ -138,7 +138,7 @@ namespace force_dimension {
     bool hardware_disabled_;
     double baseline_effector_mass_kg_;
     rclcpp::TimerBase::SharedPtr timer_;
-    rclcpp::Publisher<PositionMessage>::SharedPtr position_publisher_;
+    rclcpp::Publisher<PoseMessage>::SharedPtr pose_publisher_;
     rclcpp::Publisher<ButtonMessage>::SharedPtr button_publisher_;
     rclcpp::Publisher<GripperGapMessage>::SharedPtr gripper_gap_publisher_;
     rclcpp::Publisher<GripperAngleMessage>::SharedPtr gripper_angle_publisher_;

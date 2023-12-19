@@ -11,7 +11,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(geometry_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 find_package(example_interfaces REQUIRED)
 
 # *****************************************************************************
@@ -40,7 +40,7 @@ add_executable(node src/entry_point.cpp src/node.cpp
                     src/log.cpp src/publish.cpp src/subscribe.cpp
                     src/parameters.cpp src/gravity_compensation.cpp
                     src/forces.cpp)
-ament_target_dependencies(node rclcpp geometry_msgs 
+ament_target_dependencies(node rclcpp tf2_geometry_msgs 
                           example_interfaces ForceDimensionSDK)
 
 # *****************************************************************************
