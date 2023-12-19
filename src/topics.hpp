@@ -40,10 +40,10 @@ namespace force_dimension {
    */
   const char BUTTON_FEEDBACK_TOPIC[] = "feedback/button";
 
-  /** Topic for publishing robot velocity feedback.
+  /** Topic for publishing robot twist feedback.
    *  
    */
-  const char VELOCITY_FEEDBACK_TOPIC[] = "feedback/velocity";
+  const char TWIST_FEEDBACK_TOPIC[] = "feedback/twist";
 
   /** Topic for publishing robot force feedback.
    *  

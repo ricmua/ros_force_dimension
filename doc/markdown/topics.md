@@ -34,9 +34,9 @@ The following topics are currently implemented:
 * ``feedback/pose``: Carries [Pose][geometry_msgs_pose] messages that 
   describe the current pose of the robotic end-effector (as returned by the 
   [dhdGetPositionAndOrientationFrame] function of the Force Dimension SDK).
-* ``feedback/velocity``: Carries [Vector3][geometry_msgs_vector3] messages that 
+* ``feedback/twist``: Carries [Twist][geometry_msgs_twist] messages that 
   describe the current velocity of the robotic end-effector (as returned by the 
-  [dhdGetLinearVelocity] function of the Force Dimension SDK). See the 
+  [dhdGetLinearVelocity] and [dhdGetAngularVelocityRad] functions of the Force Dimension SDK). See the 
   Force Dimension documentation for 
   [velocity estimation][fd_velocity_estimation].
 * ``feedback/button``: Carries [Int32][example_interfaces_int32] messages that 
@@ -82,6 +82,8 @@ information about feedback decimation.
 [ros_names]: http://wiki.ros.org/Names
 
 [dhdGetLinearVelocity]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a2a29fb157bbcd49cd1807a5febf314e7
+
+[dhdGetAngularVelocityRad]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#ac712aa9c49acad0e9e30c28b732fc5ca
 
 [fd_velocity_estimation]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/index.html#dhd_velocity_modes
 

@@ -77,8 +77,8 @@ void Node::on_configure(void) {
   gripper_angle_publisher_ = create_publisher<GripperAngleMessage>(topic, qos);
   
   // Create the velocity state publisher.
-  topic = VELOCITY_FEEDBACK_TOPIC;
-  velocity_publisher_ = create_publisher<VelocityMessage>(topic, qos);
+  topic = TWIST_FEEDBACK_TOPIC;
+  twist_publisher_ = create_publisher<TwistMessage>(topic, qos);
   
   //// Create the force state publisher.
   //topic = FORCE_FEEDBACK_TOPIC;
@@ -89,7 +89,7 @@ void Node::on_configure(void) {
   declare_parameter<bool>("disable_hardware", false);
   declare_parameter<bool>("gripper.emulate_button", false);
   declare_parameter<int>("feedback_sample_decimation.pose", 50);
-  declare_parameter<int>("feedback_sample_decimation.velocity", 50);
+  declare_parameter<int>("feedback_sample_decimation.twist", 50);
   declare_parameter<int>("feedback_sample_decimation.button", 50);
   declare_parameter<int>("feedback_sample_decimation.gripper_gap", 50);
   declare_parameter<int>("feedback_sample_decimation.gripper_angle", 50);

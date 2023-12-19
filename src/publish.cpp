@@ -45,7 +45,7 @@ void force_dimension::Node::PublishState() {
   PublishButton();
   PublishGripperGap();
   PublishGripperAngle();
-  PublishVelocity();
+  PublishTwist();
   //publish_velocity();
   //publish_force();
   //publish_button();
@@ -183,10 +183,10 @@ void force_dimension::Node::PublishGripperAngle() {
 }
 
 
-/** Publish the velocity of the robotic end-effector.
+/** Publish the twist of the robotic end-effector.
  *  
  */
-void force_dimension::Node::PublishVelocity() {
+void force_dimension::Node::PublishTwist() {
   
   // Retrieve the velocity.
   double vx, vy, vz;
@@ -200,15 +200,30 @@ void force_dimension::Node::PublishVelocity() {
       on_error();
   }
   
+  // Get angular velocity
+  double ax, ay, az;
+  result = hardware_disabled_ 
+              ? DHD_NO_ERROR 
+              : dhdGetAngularVelocityRad(&ax, &ay, &az);
+  if(result < DHD_NO_ERROR)  {
+      std::string message = "Failed to read angular velocity: ";
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
+      Log(message);
+      on_error();
+  }
+  
   // Prepare a message.
-  auto message          = VelocityMessage();
-  message.x             = vx;
-  message.y             = vy;
-  message.z             = vz;
-  //message.sample_number = sample_number;
+  auto message          = TwistMessage();
+  message.linear.x      = vx;
+  message.linear.y      = vy;
+  message.linear.z      = vz;
+  
+  message.angular.x     = ax;
+  message.angular.y     = ay;
+  message.angular.z     = az;
   
   // Publish.
-  if(IsPublishableSample("velocity")) velocity_publisher_->publish(message);
+  if(IsPublishableSample("twist")) twist_publisher_->publish(message);
 }
 
 
