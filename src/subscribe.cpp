@@ -28,22 +28,25 @@ using force_dimension::Node;
 
 // Subscribes to ROS messages that indicate an instantaneous force to be 
 // applied by the robot.
-void Node::SubscribeForce(void) {
-  auto callback = [this](ForceMessage m) { this->force_callback(m); };
-  auto topic = FORCE_COMMAND_TOPIC;
+void Node::SubscribeWrench(void) {
+  auto callback = [this](WrenchMessage m) { this->wrench_callback(m); };
+  auto topic = WRENCH_COMMAND_TOPIC;
   auto qos = DefaultQoS();
-  force_subscription_ \
-      = this->create_subscription<ForceMessage>(topic, qos, callback);
+  wrench_subscription_ \
+      = this->create_subscription<WrenchMessage>(topic, qos, callback);
 }
 
 
-// Applies a force to the robotic manipulandum, as requested via ROS message.
-void Node::force_callback(const ForceMessage message) {
+// Applies a wrench to the robotic manipulandum, as requested via ROS message.
+void Node::wrench_callback(const WrenchMessage message) {
+  auto f = message.force;
+  auto t = message.torque;
+
   auto result = hardware_disabled_ 
               ? 0
-              : dhdSetForce(message.x, message.y, message.z, device_id_);
-  if((result != 0) & (result != DHD_MOTOR_SATURATED)) {
-      std::string message = "Cannot set force: ";
+              : dhdSetForceAndTorque(f.x, f.y, f.z, t.x, t.y, t.z, device_id_);
+  if((result != 0) && (result != DHD_MOTOR_SATURATED)) {
+      std::string message = "Cannot set wrench: ";
       message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
       Log(message);
       on_error();

@@ -18,7 +18,7 @@ pacakge.
 
 Use the ROS2 command line to launch these scripts. For example:
 
-```ros2 launch force_dimension echo_position.launch.py```
+```ros2 launch force_dimension echo_pose.launch.py```
 
 ## Overview
 
@@ -40,9 +40,9 @@ The launch system is described in greater detail in the
 The following launch files are available as part of the Force Dimension 
 package:
 
-* ``echo_position.launch.py``: This launch command will start the Force 
+* ``echo_pose.launch.py``: This launch command will start the Force 
   Dimension node and the ros2 topic [echo][ros2_topic_echo] command line 
-  [utility][ros2_command_line]. While running, the position of the robotic 
+  [utility][ros2_command_line]. While running, the pose of the robotic 
   end-effector will be displayed as scrolling text on the screen.
 * ``record_bag.launch.py``: This launch command will start the Force 
   Dimension node and the ros2 bag utility for 

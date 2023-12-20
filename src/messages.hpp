@@ -16,8 +16,9 @@
 
 
 // Import message types.
-#include "geometry_msgs/msg/point.hpp"
-#include "geometry_msgs/msg/vector3.hpp"
+#include "geometry_msgs/msg/pose.hpp"
+#include "geometry_msgs/msg/twist.hpp"
+#include "geometry_msgs/msg/wrench.hpp"
 #include "example_interfaces/msg/int32.hpp"
 #include "example_interfaces/msg/float64.hpp"
 
@@ -27,20 +28,20 @@ namespace force_dimension {
 
   // Message type definitions.
 
-  /** Effector position ROS message type definition.
+  /** Effector pose ROS message type definition.
    *  
    */
-  typedef geometry_msgs::msg::Point PositionMessage;
+  typedef geometry_msgs::msg::Pose PoseMessage;
 
-  /** Effector velocity ROS message type definition.
+  /** Effector twist ROS message type definition.
    *  
    */
-  typedef geometry_msgs::msg::Vector3 VelocityMessage;
+  typedef geometry_msgs::msg::Twist TwistMessage;
 
-  /** Effector force ROS message type definition.
+  /** Effector wrench ROS message type definition.
    *  
    */
-  typedef geometry_msgs::msg::Vector3 ForceMessage;
+  typedef geometry_msgs::msg::Wrench WrenchMessage;
 
   /** Event ROS message type definition.
    *  

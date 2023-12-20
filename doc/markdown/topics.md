@@ -22,8 +22,8 @@ Topics are identified by fully-qualified
 All fully-qualified topic names are prefixed with a 
 [namespace](namespace.md). By default, the namespace for the 
 Force Dimension node is ``robot``. In this documentation, the node namespace is 
-excluded, so that the fully-qualified topic name ``/robot/feedback/position`` 
-would here be referred to as ``feedback/position``.
+excluded, so that the fully-qualified topic name ``/robot/feedback/pose`` 
+would here be referred to as ``feedback/pose``.
 
 ## Feedback topics
 
@@ -31,12 +31,12 @@ A subset of topics provide information about the state of the Force Dimension
 robot. These topics are organized under the ``feedback`` relative namespace. 
 The following topics are currently implemented:
 
-* ``feedback/position``: Carries [Point][geometry_msgs_point] messages that 
-  describe the current position of the robotic end-effector (as returned by the 
-  [dhdGetPosition] function of the Force Dimension SDK).
-* ``feedback/velocity``: Carries [Vector3][geometry_msgs_vector3] messages that 
+* ``feedback/pose``: Carries [Pose][geometry_msgs_pose] messages that 
+  describe the current pose of the robotic end-effector (as returned by the 
+  [dhdGetPositionAndOrientationFrame] function of the Force Dimension SDK).
+* ``feedback/twist``: Carries [Twist][geometry_msgs_twist] messages that 
   describe the current velocity of the robotic end-effector (as returned by the 
-  [dhdGetLinearVelocity] function of the Force Dimension SDK). See the 
+  [dhdGetLinearVelocity] and [dhdGetAngularVelocityRad] functions of the Force Dimension SDK). See the 
   Force Dimension documentation for 
   [velocity estimation][fd_velocity_estimation].
 * ``feedback/button``: Carries [Int32][example_interfaces_int32] messages that 
@@ -60,10 +60,15 @@ Feedback topics can be decimated, in order to reduce the number of sent
 messages. See the [parameters documentation](parameters.md) for 
 information about feedback decimation.
 
+## Command topics
+
+* ``command/wrench``: Accepts [Wrench][geometry_msgs_wrench] messages that set 
+  the force/torque applied by the device (as set by the [dhdSetForceAndTorque] 
+  function of the Force Dimension SDK).
 
 [dhdGetGripperAngleRad]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#aacb9cbecf42f01330bd9a8fc512011d9
 
-[dhdGetPosition]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#ac6910076186b2709dec3c2bfa38628c2
+[dhdGetPositionAndOrientationFrame]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a4e6e5502f908607bfdf1e017d7fa76ec
 
 [dhdGetButtonMask]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a5fbdfdb991ebe0faa92f1bcaffde5a75
 
@@ -73,7 +78,9 @@ information about feedback decimation.
 
 [example_interfaces_int32]: https://docs.ros2.org/latest/api/example_interfaces/msg/Int32.html
 
-[geometry_msgs_point]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Point.html
+[geometry_msgs_pose]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Pose.html
+
+[geometry_msgs_wrench]: http://docs.ros.org/en/latest/api/geometry_msgs/html/msg/Wrench.html
 
 [ros_topics]: https://docs.ros.org/en/humble/Tutorials/Topics/Understanding-ROS2-Topics.html
 
@@ -82,6 +89,10 @@ information about feedback decimation.
 [ros_names]: http://wiki.ros.org/Names
 
 [dhdGetLinearVelocity]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a2a29fb157bbcd49cd1807a5febf314e7
+
+[dhdGetAngularVelocityRad]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#ac712aa9c49acad0e9e30c28b732fc5ca
+
+[dhdSetForceAndTorque]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/dhdc_8h.html#a1b2da67ae01e69a07cf80695ec055bd6
 
 [fd_velocity_estimation]: https://downloads.forcedimension.com/sdk/doc/fdsdk-3.14.0/dhd/index.html#dhd_velocity_modes
 

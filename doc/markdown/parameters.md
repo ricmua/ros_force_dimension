@@ -45,11 +45,11 @@ parameter value is ``1``, then no decimation occurs. If the parameter value is
 less than ``1``, then no messages are published at all (i.e., the feedback 
 channel / topic is disabled).
 
-As an example, consider the ROS topic that publishes the position of the 
-robotic end-effector (e.g., ``/robot/feedback/position``). If the sampling 
+As an example, consider the ROS topic that publishes the pose of the 
+robotic end-effector (e.g., ``/robot/feedback/pose``). If the sampling 
 / update rate of the node is ``2000 Hz`` (i.e., ``sample_interval_s: 0.0005``), 
 then a decimation factor of ``50`` (i.e., 
-``feedback_sample_decimation.position: 50``) would result in position 
+``feedback_sample_decimation.pose: 50``) would result in pose 
 feedback published at ``40 Hz``.
 
 [^parameter_namespace]: ROS2 parameter namespaces do not seem to be 
@@ -91,7 +91,7 @@ Force Dimension node:
   ros__parameters:
     sample_interval_s: 0.0005
     feedback_sample_decimation:
-      position: 50
+      pose: 50
       button: 50
       gripper_gap: 50
       gripper_angle: 50

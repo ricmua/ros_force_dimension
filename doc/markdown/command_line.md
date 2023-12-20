@@ -28,7 +28,7 @@ That the node is functioning properly can be confirmed by running the following
 command in a second configured ROS2 environment:
 
 ```
-ros2 topic echo /robot/feedback/position
+ros2 topic echo /robot/feedback/pose
 ```
 
 The output will show the ``x``, ``y``, and ``z`` coordinates of the effector 

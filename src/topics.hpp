@@ -30,20 +30,20 @@ namespace force_dimension {
     
   };
 
-  /** Topic for publishing robot position feedback.
+  /** Topic for publishing robot pose feedback.
    *  
    */
-  const char POSITION_FEEDBACK_TOPIC[] = "feedback/position";
+  const char POSE_FEEDBACK_TOPIC[] = "feedback/pose";
 
   /** Topic for publishing button press feedback.
    *  
    */
   const char BUTTON_FEEDBACK_TOPIC[] = "feedback/button";
 
-  /** Topic for publishing robot velocity feedback.
+  /** Topic for publishing robot twist feedback.
    *  
    */
-  const char VELOCITY_FEEDBACK_TOPIC[] = "feedback/velocity";
+  const char TWIST_FEEDBACK_TOPIC[] = "feedback/twist";
 
   /** Topic for publishing robot force feedback.
    *  
@@ -53,7 +53,7 @@ namespace force_dimension {
   /** Topic for subscribing to robot force commands.
    *  
    */
-  const char FORCE_COMMAND_TOPIC[] = "command/force";
+  const char WRENCH_COMMAND_TOPIC[] = "command/wrench";
   
   /** Topic for gripper gap width feedback.
    *  

@@ -20,6 +20,9 @@
 // Import the ROS interface.
 #include "rclcpp/rclcpp.hpp"
 
+// Import ROS tf2 for transform math
+#include "tf2_geometry_msgs/tf2_geometry_msgs.hpp"
+
 // Import the Force Dimension haptics library.
 #include "dhdc.h"
 
@@ -33,47 +36,60 @@
  *  
  */
  
-/** Publish state feedback. The state consists of the position, velocity, and 
+/** Publish state feedback. The state consists of the pose, velocity, and 
  *  force.
  */
 void force_dimension::Node::PublishState() {
   sample_number_++;
-  PublishPosition();
+  PublishPose();
   PublishButton();
   PublishGripperGap();
   PublishGripperAngle();
-  PublishVelocity();
+  PublishTwist();
   //publish_velocity();
   //publish_force();
   //publish_button();
-  //publish_orientation();
 }
 
-/** Publish the position of the robotic end-effector.
+/** Publish the pose of the robotic end-effector.
  *  
  */
-void force_dimension::Node::PublishPosition() {
+void force_dimension::Node::PublishPose() {
   
-  // Retrieve the position.
+  // Get the device pose
   double px, py, pz;
+  double rot[3][3];
   auto result = hardware_disabled_ 
               ? DHD_NO_ERROR 
-              : dhdGetPosition(&px, &py, &pz);
+              : dhdGetPositionAndOrientationFrame(&px, &py, &pz, rot);
   if(result < DHD_NO_ERROR)  {
-      std::string message = "Failed to read position: ";
+      std::string message = "Failed to read pose: ";
       message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
       Log(message);
       on_error();
   }
+
+  // Convert rotation matrix to quaternion
+  tf2::Matrix3x3 tf2_rot(
+    rot[0][0], rot[0][1], rot[0][2],
+    rot[1][0], rot[1][1], rot[1][2],
+    rot[2][0], rot[2][1], rot[2][2]
+  );
+  tf2::Quaternion q;
+  tf2_rot.getRotation(q);
+
   
-  auto message          = PositionMessage();
-  message.x             = px;
-  message.y             = py;
-  message.z             = pz;
-  //message.sample_number = sample_number;
+  // Populate message fields
+  auto message          = PoseMessage();
+
+  message.position.x    = px;
+  message.position.y    = py;
+  message.position.z    = pz;
+
+  message.orientation   = tf2::toMsg(q);
   
   // Publish.
-  if(IsPublishableSample("position")) position_publisher_->publish(message);
+  if(IsPublishableSample("pose")) pose_publisher_->publish(message);
 }
 
 
@@ -167,10 +183,10 @@ void force_dimension::Node::PublishGripperAngle() {
 }
 
 
-/** Publish the velocity of the robotic end-effector.
+/** Publish the twist of the robotic end-effector.
  *  
  */
-void force_dimension::Node::PublishVelocity() {
+void force_dimension::Node::PublishTwist() {
   
   // Retrieve the velocity.
   double vx, vy, vz;
@@ -184,15 +200,30 @@ void force_dimension::Node::PublishVelocity() {
       on_error();
   }
   
+  // Get angular velocity
+  double ax, ay, az;
+  result = hardware_disabled_ 
+              ? DHD_NO_ERROR 
+              : dhdGetAngularVelocityRad(&ax, &ay, &az);
+  if(result < DHD_NO_ERROR)  {
+      std::string message = "Failed to read angular velocity: ";
+      message += hardware_disabled_ ? "unknown error" : dhdErrorGetLastStr();
+      Log(message);
+      on_error();
+  }
+  
   // Prepare a message.
-  auto message          = VelocityMessage();
-  message.x             = vx;
-  message.y             = vy;
-  message.z             = vz;
-  //message.sample_number = sample_number;
+  auto message          = TwistMessage();
+  message.linear.x      = vx;
+  message.linear.y      = vy;
+  message.linear.z      = vz;
+  
+  message.angular.x     = ax;
+  message.angular.y     = ay;
+  message.angular.z     = az;
   
   // Publish.
-  if(IsPublishableSample("velocity")) velocity_publisher_->publish(message);
+  if(IsPublishableSample("twist")) twist_publisher_->publish(message);
 }
 
 

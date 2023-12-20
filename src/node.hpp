@@ -32,7 +32,7 @@ namespace force_dimension {
 
   /** A ROS2 node for interfacing with a Force Dimension haptic robot.
    *  
-   *  Periodically emits ROS2 messages containing the sampled position of a Force
+   *  Periodically emits ROS2 messages containing the sampled pose of a Force
    *  Dimension robotic manipulandum (e.g., delta.3, sigma.7, or Novint Falcon).
    *  Accepts ROS2 messages that contain an instantaneous force, or vibration, to 
    *  be applied to the manipulandum.
@@ -78,8 +78,8 @@ namespace force_dimension {
     // Publishes robot state feedback.
     void PublishState(void);
     
-    // Publishes robot position messages.
-    void PublishPosition(void);
+    // Publishes robot pose messages.
+    void PublishPose(void);
     
     // Publishes robot button messages.
     void PublishButton(void);
@@ -90,23 +90,23 @@ namespace force_dimension {
     // Publish gripper opening angle in radians.
     void PublishGripperAngle(void);
     
-    // Publishes robot velocity messages.
-    void PublishVelocity(void);
+    // Publishes robot twist messages.
+    void PublishTwist(void);
     
     //// Publishes robot force messages.
     //void PublishForce(void);
     
-    // Subscribes to ROS messages that indicate an instantaneous force to be 
-    // applied to the robot endpoint.
-    void SubscribeForce(void);
+    // Subscribes to ROS messages that indicate an instantaneous force/torque
+    // to be applied to the robot endpoint.
+    void SubscribeWrench(void);
     
     // Subscribes to ROS messages that indicate an instantaneous force to be 
     // applied to the gripper by the robot.
     void SubscribeGripperForce(void);
     
-    // Applies a force to the robotic manipulandum, as requested via ROS 
+    // Applies a wrench to the robotic manipulandum, as requested via ROS 
     // message.
-    void force_callback(const ForceMessage);
+    void wrench_callback(const WrenchMessage);
     //void ApplyForce
     
     // Check whether or not the current data sample should be published.
@@ -138,13 +138,13 @@ namespace force_dimension {
     bool hardware_disabled_;
     double baseline_effector_mass_kg_;
     rclcpp::TimerBase::SharedPtr timer_;
-    rclcpp::Publisher<PositionMessage>::SharedPtr position_publisher_;
+    rclcpp::Publisher<PoseMessage>::SharedPtr pose_publisher_;
     rclcpp::Publisher<ButtonMessage>::SharedPtr button_publisher_;
     rclcpp::Publisher<GripperGapMessage>::SharedPtr gripper_gap_publisher_;
     rclcpp::Publisher<GripperAngleMessage>::SharedPtr gripper_angle_publisher_;
-    rclcpp::Publisher<VelocityMessage>::SharedPtr velocity_publisher_;
+    rclcpp::Publisher<TwistMessage>::SharedPtr twist_publisher_;
     //rclcpp::Publisher<ForceMessage>::SharedPtr force_publisher_;
-    rclcpp::Subscription<ForceMessage>::SharedPtr force_subscription_;
+    rclcpp::Subscription<WrenchMessage>::SharedPtr wrench_subscription_;
     OnSetParametersCallbackHandle::SharedPtr parameters_callback_handle_;
   };
 

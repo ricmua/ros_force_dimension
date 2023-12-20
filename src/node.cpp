@@ -60,9 +60,9 @@ void Node::on_configure(void) {
   // Use the default ROS2 Quality-of-Service.
   auto qos = DefaultQoS();
   
-  // Create the position state publisher.
-  auto topic = POSITION_FEEDBACK_TOPIC;
-  position_publisher_ = create_publisher<PositionMessage>(topic, qos);
+  // Create the pose state publisher.
+  auto topic = POSE_FEEDBACK_TOPIC;
+  pose_publisher_ = create_publisher<PoseMessage>(topic, qos);
   
   // Create the button state publisher.
   topic = BUTTON_FEEDBACK_TOPIC;
@@ -77,8 +77,8 @@ void Node::on_configure(void) {
   gripper_angle_publisher_ = create_publisher<GripperAngleMessage>(topic, qos);
   
   // Create the velocity state publisher.
-  topic = VELOCITY_FEEDBACK_TOPIC;
-  velocity_publisher_ = create_publisher<VelocityMessage>(topic, qos);
+  topic = TWIST_FEEDBACK_TOPIC;
+  twist_publisher_ = create_publisher<TwistMessage>(topic, qos);
   
   //// Create the force state publisher.
   //topic = FORCE_FEEDBACK_TOPIC;
@@ -88,8 +88,8 @@ void Node::on_configure(void) {
   declare_parameter<float>("sample_interval_s", 0.025);
   declare_parameter<bool>("disable_hardware", false);
   declare_parameter<bool>("gripper.emulate_button", false);
-  declare_parameter<int>("feedback_sample_decimation.position", 50);
-  declare_parameter<int>("feedback_sample_decimation.velocity", 50);
+  declare_parameter<int>("feedback_sample_decimation.pose", 50);
+  declare_parameter<int>("feedback_sample_decimation.twist", 50);
   declare_parameter<int>("feedback_sample_decimation.button", 50);
   declare_parameter<int>("feedback_sample_decimation.gripper_gap", 50);
   declare_parameter<int>("feedback_sample_decimation.gripper_angle", 50);
@@ -98,7 +98,7 @@ void Node::on_configure(void) {
   declare_parameter<bool>("enable_force", true);
 
   // Create the force control subcription.
-  SubscribeForce();
+  SubscribeWrench();
 }
 
 
